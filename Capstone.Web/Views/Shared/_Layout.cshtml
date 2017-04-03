@@ -16,6 +16,24 @@
 </head>
 <body>
     <div> 
+        <h1>CLE OmniBus!!</h1>
+        <nav>
+           <ul>
+               <li>
+                  @Html.ActionLink("Home", "Index", "Home")
+               </li>               
+               <li>
+                   @Html.ActionLink("Routes", "Index", "Route")
+               </li>
+               <li>
+                   @Html.ActionLink("Login", "Index", "User")
+               </li>
+               <li>
+                   @Html.ActionLink("Register", "Register", "User")
+               </li>
+           </ul>
+        </nav>
     </div>
+    @RenderBody()
 </body>
 </html>
