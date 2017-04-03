@@ -36,6 +36,8 @@ namespace Capstone.Web.DAL
                     {
                         returnedUser.EmailAddress = Convert.ToString(reader["email_address"]);
                         returnedUser.Phone = Convert.ToString(reader["phone_number"]);
+                        returnedUser.Password = Convert.ToString(reader["password"]);
+                        returnedUser.IsAdmin = Convert.ToBoolean(reader["is_admin"]);
                         returnedUser.UserID = Convert.ToInt32(reader["user_id"]);
                     }
                     return returnedUser;
