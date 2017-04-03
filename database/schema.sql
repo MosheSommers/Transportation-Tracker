@@ -16,3 +16,14 @@ CREATE table users
 
 	CONSTRAINT pk_users PRIMARY KEY (user_id)
 );
+
+CREATE table routes
+(
+	route_id int Identity(1,1),
+	route_name varChar(100) not null,
+	waypoints varChar(max) not null,
+	created_by_user int
+
+	CONSTRAINT pk_routes PRIMARY KEY (route_id)
+);
+
