@@ -9,29 +9,33 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>_Layout</title>
-
+    <link href="~/style.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
     <script src="~/Scripts/jquery-3.1.1.min.js"></script>
     <script src="~/Scripts/jquery.validate.min.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
 </head>
 <body>
     <div> 
-        <h1>CLE OmniBus!!</h1>
-        <nav>
-           <ul>
-               <li>
-                  @Html.ActionLink("Home", "Index", "Home")
-               </li>               
-               <li>
-                   @Html.ActionLink("Routes", "Index", "Route")
-               </li>
-               <li>
-                   @Html.ActionLink("Login", "Index", "User")
-               </li>
-               <li>
-                   @Html.ActionLink("Register", "Register", "User")
-               </li>
-           </ul>
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <a href="#">CLE|omnibus</a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li>@Html.ActionLink("Routes", "Index", "Route")</li>
+                        <li><a href="#">Other Stuff</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>Username Goes Here</li>
+                        <li>@Html.ActionLink("Login", "Index", "User")</li>
+                        <li>@Html.ActionLink("Register", "Register", "User")</li>
+                    </ul>
+                </div>
+            </div>
         </nav>
     </div>
     @RenderBody()
