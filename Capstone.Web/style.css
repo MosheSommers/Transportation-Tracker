@@ -65,3 +65,36 @@ html, body {
     display:block;
     margin-bottom: 10px;
 }
+.enter-info{
+    /*border: 5px solid red;*/
+    
+
+}
+
+.tony {
+    /*border: 5px solid green;*/
+    
+
+}
+
+.rachel {
+    /*border: 5px solid cyan;*/
+}
+
+.moshe{
+   /*border: 5px solid purple;*/
+}
+
+hr {
+    border: 0;
+    height: 5px;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), #000, rgba(0, 0, 0, 0));
+}
+.submit {
+    border-radius: 10px;
+}
+
+.login {
+    text-align: center;
+    margin: auto;
+}
