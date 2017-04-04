@@ -48,3 +48,21 @@ html, body {
     background-color: #FFEE77;
     padding: 10px;
 }
+#email-field{
+    display:block;
+    margin-left: 80px;
+    text-align: left;
+}
+
+input[type=text] {
+    width: 25%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+}
+input[type=password] {
+    width: 25%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+}

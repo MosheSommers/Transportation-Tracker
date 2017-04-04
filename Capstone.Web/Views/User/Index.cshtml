@@ -5,7 +5,7 @@
 }
 
 <h2>Login</h2>
-<div class="enter-login-info">
+<div>
     <script type="text/javascript">
         function addText() {
             var input = document.getElementById('email');
@@ -16,9 +16,13 @@
             input.value += input.value;
         }
     </script>
+    <div class="enter-info"></div>
+    <form name="frm1" action="?" onsubmit="addText()">
+         <label for="email">Email</label>
+         <input type="text" name="email" id="email" />
+         <label for="password">Password</label>
+         <input type="password" name="password" id="password" />
+         <input type="submit" value="Submit" />
+    </form>
+    </div>
 </div>
-<form name="frm1" action="?" onsubmit="addText()">
-    <input type="text" name="email" id="email" />
-    <input type="text" name="password" id="password" />
-    <input type="submit" value="Submit" />
-</form>
