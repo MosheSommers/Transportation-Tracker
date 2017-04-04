@@ -6,18 +6,9 @@
 
 <h2 class="login">Login</h2>
 <div>
-    <script type="text/javascript">
-        function addText() {
-            var input = document.getElementById('email');
-            input.value += input.value;
-        }
-        function addText() {
-            var input = document.getElementById('password');
-            input.value += input.value;
-        }
-    </script>
+   
     <div class="enter-info">
-    <form name="frm1" action="?" onsubmit="addText()">
+    <form name="frm1" action="LoginPost" method="post">
         <div class="tony">
             <input class="loginBox" type="text" name="email" id="email" />
             <label for="email"> Username or E-mail Address</label>
