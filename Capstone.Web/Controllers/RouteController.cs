@@ -19,9 +19,15 @@ namespace Capstone.Web.Controllers
         // GET: Create
         public ActionResult Create()
         {
-            Route newRoute = new Route();
-            newRoute.AddWaypoint("Bacon");
-            return View(newRoute);
+            return View();
+        }
+
+        // POST: Create
+        [HttpPost]
+        public ActionResult Create(Route r)
+        {
+            // access dAL and update DB with new route/waypoints
+            return View(r);
         }
     }
 }

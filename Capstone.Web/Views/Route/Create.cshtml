@@ -9,23 +9,15 @@
 <div id="map"></div>
 <div id="right-panel">
     <div>
-        <b>Test Waypoint</b><br />
-        <input id="newWaypoint" type="text"><br />
-        <input type="submit" id="testsubmit" value="PUSHMEEEEE">
+        <form action="@Url.Action("Create")" method="post">
+            <b>Route Name</b><br />
+            <input id="RouteName" type="text" name="RouteName" /><br /><hr />
+            <b>List of Stops:</b><br />
+            <input id="Waypoints[0]" type="text" name="Waypoints[0]" /><br /><br />
+            <button type="button" id="add-btn">Add Another Stop</button><br /><hr />
+            <input type="submit" id="submit">
+        </form>
     </div>
-
-
-    <div>
-        <b>Start:</b><br />
-        <input id="start" type="text" name="start" /><br />
-        <b>Middle:</b><br />
-        <input id="waypoints" type="text" name="waypoints" /><br />
-        <b>End:</b><br />
-        <input id="end" type="text" name="end" /><br />
-        <input type="submit" id="submit">
-    </div>
-
-
     <div id="directions-panel"></div>
 </div>
 
@@ -34,22 +26,23 @@
         var directionsService = new google.maps.DirectionsService;
         var directionsDisplay = new google.maps.DirectionsRenderer;
         var map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 6,
-            center: { lat: 41.85, lng: -87.65 }
+            zoom: 10,
+            center: { lat: 41.4993, lng: -81.6944 }
         });
         directionsDisplay.setMap(map);
 
         document.getElementById('submit').addEventListener('click', function () {
             calculateAndDisplayRoute(directionsService, directionsDisplay);
         });
-
-        document.getElementById('testsubmit').addEventListener('click', function () { // My test waypoint thing
-            alert(@Model.Waypoints[0].ToString()); // WHY DOES THIS NOT SHOW???
-        });
     }
 
     function calculateAndDisplayRoute(directionsService, directionsDisplay) {
         var waypts = [];
+        waypts.push({
+            location: document.getElementById('waypoints').value,
+            stopover: true
+        });
+        /*
         var checkboxArray = document.getElementById('waypoints'); // REPLACE .documentgetElementById with model list of strings
         for (var i = 0; i < checkboxArray.length; i++) {
             if (checkboxArray.options[i].selected) {
@@ -58,10 +51,10 @@
                     stopover: true
                 });
             }
-        }
+        }*/
 
         directionsService.route({
-            origin: document.getElementById('start').value, // REPLACE WITH MODEL list[0]
+            origin: document.getElementById('start').value,    // REPLACE WITH MODEL list[0]
             destination: document.getElementById('end').value, // REPLACE WITH MODEL list[list.length-1]
             waypoints: waypts,
             optimizeWaypoints: true,
