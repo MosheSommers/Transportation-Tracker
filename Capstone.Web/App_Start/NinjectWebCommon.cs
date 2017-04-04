@@ -64,6 +64,7 @@ namespace Capstone.Web.App_Start
         private static void RegisterServices(IKernel kernel)
         {
             kernel.Bind<IUserDAL>().To<UserSqlDAL>().WithConstructorArgument("connectionString", ConfigurationManager.ConnectionStrings["omnibus"].ConnectionString);
+            kernel.Bind<IRouteDAL>().To<RouteSqlDAL>().WithConstructorArgument("connectonString", ConfigurationManager.ConnectionStrings["omnibus"].ConnectionString);
         }        
     }
 }

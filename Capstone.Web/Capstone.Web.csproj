@@ -140,7 +140,9 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RouteController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="DAL\IRouteDAL.cs" />
     <Compile Include="DAL\IUserDAL.cs" />
+    <Compile Include="DAL\RouteSqlDAL.cs" />
     <Compile Include="DAL\UserSqlDAL.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -159,6 +161,7 @@
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\Route\Index.cshtml" />
     <Content Include="Views\User\Register.cshtml" />
+    <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Route\Create.cshtml" />
     <None Include="Web.Debug.config">
