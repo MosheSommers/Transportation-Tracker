@@ -59,42 +59,44 @@ html, body {
     padding: 12px 20px;
     margin: 8px 0;
     box-sizing: border-box;
+    border-radius: 5px;
 }
 
 .waypointAdder{
     display:block;
     margin-bottom: 10px;
+    border-radius: 5px;
 }
 .enter-info{
-    /*border: 5px solid red;*/
-    
+    border: 5px solid red;
+    align-content: center;
 
 }
 
 .tony {
-    /*border: 5px solid green;*/
-    
+    border: 5px solid green;
+    margin: auto;
 
 }
 
 .rachel {
-    /*border: 5px solid cyan;*/
+    border: 5px solid cyan;
 }
 
 .moshe{
-   /*border: 5px solid purple;*/
+   border: 5px solid purple;
 }
 
 hr {
     border: 0;
     height: 5px;
-    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), #000, rgba(0, 0, 0, 0));
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), #f00, rgba(0, 0, 0, 0));
 }
 .submit {
     border-radius: 10px;
 }
 
-.login {
+h2 {
     text-align: center;
     margin: auto;
 }
