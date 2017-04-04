@@ -44,8 +44,7 @@
         });
 
         document.getElementById('testsubmit').addEventListener('click', function () { // My test waypoint thing
-            alert("HI TONY");
-            alert(@Model.Waypoints[0]); // WHY DOES THIS NOT SHOW???
+            alert(@Model.Waypoints[0].ToString()); // WHY DOES THIS NOT SHOW???
         });
     }
 
