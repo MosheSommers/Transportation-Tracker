@@ -60,3 +60,8 @@ html, body {
     margin: 8px 0;
     box-sizing: border-box;
 }
+
+.waypointAdder{
+    display:block;
+    margin-bottom: 10px;
+}

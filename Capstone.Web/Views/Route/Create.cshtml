@@ -14,9 +14,18 @@
         <form action="@Url.Action("Create")" method="post">
             <b>Route Name</b><br />
             <input id="RouteName" type="text" name="RouteName" /><br /><hr />
+
             <b>List of Stops:</b><br />
-            <input id="Waypoints[0]" type="text" name="Waypoints[0]" /><br /><br />
+            <input id="Waypoints[0]" class="waypointAdder" type="text" name="Waypoints[0]" /><br /><br />
             <button type="button" id="add-btn">Add Another Stop</button><br /><hr />
+            <script>
+                $('#add-btn').on('click', function () {
+                    var currentStopCount = $('.waypointAdder').length;
+                    $('.waypointAdder:last').after('<input type="text" class="waypointAdder" id="Waypoints[' + currentStopCount + ']" name="Waypoints[' + currentStopCount + ']"/>');
+                });
+
+            </script>
+            
             <input type="submit" id="submit">
         </form>
     </div>
@@ -44,8 +53,8 @@
         var waypts = []
 
         directionsService.route({
-            origin: 'cleveland',                      //document.getElementById('start').value,
-            destination: 'columbus',                  //document.getElementById('end').value,
+            origin: 'Cleveland',                      //document.getElementById('start').value,
+            destination: 'Columbus',                  //document.getElementById('end').value,
             waypoints: waypts,
             optimizeWaypoints: true,
             travelMode: 'DRIVING'
