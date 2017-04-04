@@ -159,12 +159,9 @@
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\Route\Index.cshtml" />
     <Content Include="Views\User\Register.cshtml" />
-<<<<<<< HEAD
     <Content Include="Views\Home\Login.cshtml" />
-=======
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Route\Create.cshtml" />
->>>>>>> 76439bd696fb31e22660d66f712547bc35b81867
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

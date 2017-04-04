@@ -29,6 +29,7 @@ bin/
 obj/
 packages/
 .vs/
+*.user
 
 # Logs and databases #
 ######################
