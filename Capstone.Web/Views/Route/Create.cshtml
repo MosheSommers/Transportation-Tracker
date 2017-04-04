@@ -28,6 +28,7 @@
     </div>
     <div id="directions-panel"></div>
 </div>
+
 <script>
     function initMap() {
         var directionsService = new google.maps.DirectionsService;
@@ -45,7 +46,7 @@
 
     function calculateAndDisplayRoute(directionsService, directionsDisplay) {
         var waypts = [];
-        var checkboxArray = document.getElementById('waypoints');
+        var checkboxArray = document.getElementById('waypoints'); // REPLACE .documentgetElementById with model list of strings
         for (var i = 0; i < checkboxArray.length; i++) {
             if (checkboxArray.options[i].selected) {
                 waypts.push({
@@ -56,8 +57,8 @@
         }
 
         directionsService.route({
-            origin: document.getElementById('start').value,
-            destination: document.getElementById('end').value,
+            origin: document.getElementById('start').value, // REPLACE WITH MODEL list[0]
+            destination: document.getElementById('end').value, // REPLACE WITH MODEL list[list.length-1]
             waypoints: waypts,
             optimizeWaypoints: true,
             travelMode: 'DRIVING'
@@ -67,7 +68,7 @@
                 var route = response.routes[0];
                 var summaryPanel = document.getElementById('directions-panel');
                 summaryPanel.innerHTML = '';
-                // For each route, display summary information.
+
                 for (var i = 0; i < route.legs.length; i++) {
                     var routeSegment = i + 1;
                     summaryPanel.innerHTML += '<b>Stop: ' + routeSegment +
@@ -84,6 +85,7 @@
         });
     }
 </script>
+
 <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC1daWs4KZZROhgz8DlBzFXdz80pSWo8Fs&callback=initMap">
 </script>
