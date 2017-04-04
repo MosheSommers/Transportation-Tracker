@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using System.Transactions;
 using Capstone.Web.DAL;
 using Capstone.Web.Models;
+using System.Collections.Generic;
 
 namespace Capstone.Web.Tests.DAL
 {
@@ -39,7 +40,9 @@ namespace Capstone.Web.Tests.DAL
         [TestMethod]
         public void InsertRouteTest()
         {
-            Assert.IsTrue(routeDAL.InsertRoute(new Route()));
+
+            Route r = new Route() { RouteName = "test route", Waypoints = new List<string>() { "wayPoint 1", "waypoint 2", "waypoint 3" } };
+            Assert.IsTrue(routeDAL.InsertRoute(r));
         }
     }
 }
