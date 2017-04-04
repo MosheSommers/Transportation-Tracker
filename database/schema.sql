@@ -33,8 +33,8 @@ CREATE table waypoints
 (
 	waypoint_id int Identity(1,1),
 	waypoint_position varChar(200),
-	waypoint_name varChar(50),
-	stop_number int, 
+	--waypoint_name varChar(50),
+	--stop_number int, 
 	route_id int FOREIGN KEY REFERENCES routes(route_id),
 	CONSTRAINT PK_waypoint_id PRIMARY KEY (waypoint_id)	
 );
