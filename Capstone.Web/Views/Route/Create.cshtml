@@ -6,7 +6,9 @@
 }
 
 <h2>Create a New Route</h2>
+
 <div id="map"></div>
+
 <div id="right-panel">
     <div>
         <form action="@Url.Action("Create")" method="post">
@@ -18,8 +20,12 @@
             <input type="submit" id="submit">
         </form>
     </div>
+
     <div id="directions-panel"></div>
 </div>
+
+
+
 
 <script>
     function initMap() {
@@ -37,12 +43,10 @@
     }
 
     function calculateAndDisplayRoute(directionsService, directionsDisplay) {
-        var waypts = [];
-        waypts.push({
-            location: document.getElementById('waypoints').value,
-            stopover: true
-        });
+
+        var waypts = @Model.Waypoints; // Assign the interior waypoints 
         /*
+        var waypts = [];
         var checkboxArray = document.getElementById('waypoints'); // REPLACE .documentgetElementById with model list of strings
         for (var i = 0; i < checkboxArray.length; i++) {
             if (checkboxArray.options[i].selected) {
@@ -54,8 +58,8 @@
         }*/
 
         directionsService.route({
-            origin: document.getElementById('start').value,    // REPLACE WITH MODEL list[0]
-            destination: document.getElementById('end').value, // REPLACE WITH MODEL list[list.length-1]
+            origin: @Model.Waypoints[0],                                       //document.getElementById('start').value,
+            destination: @Model.Waypoints[@Model.Waypoints.Count - 1],         //document.getElementById('end').value,
             waypoints: waypts,
             optimizeWaypoints: true,
             travelMode: 'DRIVING'
