@@ -27,7 +27,7 @@ namespace Capstone.Web.Controllers
         public ActionResult Create(Route r)
         {
             // access dAL and update DB with new route/waypoints
-            return View(r);
+            return RedirectToAction("Index");
         }
     }
 }
