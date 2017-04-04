@@ -10,7 +10,7 @@ namespace Capstone.Web.DAL
     public class UserSqlDAL : IUserDAL
     {
         private const string GetUserQuery = "select * from users where email_address = @email";
-        private const string InsertUserQuery = "insert into users values(@email, @password, @phoneNumber, 0)";
+        private const string InsertUserQuery = "insert into users (email_address, password, phone_number, is_admin) values(@email, @password, @phoneNumber, 0)";
 
         private string connectionString;
 
