@@ -33,8 +33,8 @@ namespace Capstone.Web.Tests.DAL
         [TestMethod]
         public void GetRouteTest()
         {
-            Route r = routeDAL.GetRoute(new Route());
-            Assert.AreEqual("East 55th", r.RouteName);
+            Route r = routeDAL.GetRoute(new Route() { RouteName = "test route", Waypoints = new List<string>() { "wayPoint 1", "waypoint 2", "waypoint 3" } });
+            Assert.AreEqual(3, r.Waypoints.Count);
         }
 
         [TestMethod]
