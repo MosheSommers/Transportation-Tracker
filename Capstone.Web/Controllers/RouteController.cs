@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Capstone.Web.Models;
 
 namespace Capstone.Web.Controllers
 {
@@ -18,7 +19,9 @@ namespace Capstone.Web.Controllers
         // GET: Create
         public ActionResult Create()
         {
-            return View();
+            Route newRoute = new Route();
+            newRoute.AddWaypoint("Bacon");
+            return View(newRoute);
         }
     }
 }

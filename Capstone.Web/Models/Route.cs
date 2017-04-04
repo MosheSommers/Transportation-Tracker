@@ -15,7 +15,7 @@ namespace Capstone.Web.Models
 
         public List<string> Waypoints { get; set; } = new List<string>();
 
-        public void AddWayPoint(string newWaypoint)
+        public void AddWaypoint(string newWaypoint)
         {
             this.Waypoints.Add(newWaypoint);
         }

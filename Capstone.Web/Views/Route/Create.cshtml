@@ -9,17 +9,18 @@
 <div id="map"></div>
 <div id="right-panel">
     <div>
-        <b>Test Start</b><br />
-
+        <b>Test Waypoint</b><br />
+        <input id="newWaypoint" type="text"><br />
+        <input type="submit" id="testsubmit" value="PUSHMEEEEE">
     </div>
 
 
     <div>
         <b>Start:</b><br />
-        <input id ="start" type="text" name="start"/><br />
+        <input id="start" type="text" name="start" /><br />
         <b>Middle:</b><br />
-        <input id="waypoints" type="text" name="waypoints"/><br />
-        <b>End:</b><br/>
+        <input id="waypoints" type="text" name="waypoints" /><br />
+        <b>End:</b><br />
         <input id="end" type="text" name="end" /><br />
         <input type="submit" id="submit">
     </div>
@@ -40,6 +41,11 @@
 
         document.getElementById('submit').addEventListener('click', function () {
             calculateAndDisplayRoute(directionsService, directionsDisplay);
+        });
+
+        document.getElementById('testsubmit').addEventListener('click', function () { // My test waypoint thing
+            alert("HI TONY");
+            alert(@Model.Waypoints[0]); // WHY DOES THIS NOT SHOW???
         });
     }
 
