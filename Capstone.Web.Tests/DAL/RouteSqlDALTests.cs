@@ -16,10 +16,26 @@ namespace Capstone.Web.Tests.DAL
 
         private string connectionString = @"Data Source=.\SQLEXPRESS;Initial Catalog=omnibus;" +
             "User ID=te_student;Password=sqlserver1";
+        int id = 0;
 
         [TestInitialize]
         public void Initialize()
         {
+            using(SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand("insert into routes values('testRoute');SELECT CAST(scope_identity() AS int)", connection);
+                id = (int)command.ExecuteScalar();
+
+                command = new SqlCommand("insert into waypoints values('waypoint1'," + id + ")", connection);
+                command.ExecuteNonQuery();
+
+                command = new SqlCommand("insert into waypoints values ('waypoint2'," + id + ")", connection);
+                command.ExecuteNonQuery();
+
+                command = new SqlCommand("insert into waypoints values('waypoint3'," + id + ")", connection);
+                command.ExecuteNonQuery();
+            }
             routeDAL = new RouteSqlDAL(connectionString);
             tran = new TransactionScope();
         }
@@ -33,7 +49,7 @@ namespace Capstone.Web.Tests.DAL
         [TestMethod]
         public void GetRouteTest()
         {
-            Route r = routeDAL.GetRoute(new Route() { RouteName = "test route", Waypoints = new List<string>() { "wayPoint 1", "waypoint 2", "waypoint 3" } });
+            Route r = routeDAL.GetRoute(new Route() { RouteName = "test route", RouteID = id });
             Assert.AreEqual(3, r.Waypoints.Count);
         }
 

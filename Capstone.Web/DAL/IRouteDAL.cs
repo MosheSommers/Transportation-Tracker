@@ -12,5 +12,7 @@ namespace Capstone.Web.DAL
         bool InsertRoute(Route r);
 
         Route GetRoute(Route r);
+
+        List<Route> GetAllRoutes();
     }
 }

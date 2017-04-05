@@ -9,9 +9,11 @@ namespace Capstone.Web.DAL
 {
     public class RouteSqlDAL : IRouteDAL
     {
-        private const string InsertWayPointQuery = "insert into waypoints (waypoint_position, route_id) values(@wayPoint, (select route_id from routes where route_name = @routeName))";
+        private const string InsertWayPointsQuery = "insert into waypoints (waypoint_position, route_id) values(@wayPoint, (select route_id from routes where route_name = @routeName))";
         private const string InsertRouoteQuery = "insert into routes values(@routeName)";
-        private const string GetRouteQuery = "select waypoint_position from waypoints where route_id = (select route_id from routes where route_name = @name)";
+        private const string GetRouteQuery = "select waypoint_position from waypoints where route_id = (select route_id from routes where route_id = @routeId)";
+        private const string GetAllRoutesQuery = "select * from routes";
+
         private string connectionString;
 
         public RouteSqlDAL(string connectionString)
@@ -27,7 +29,7 @@ namespace Capstone.Web.DAL
                     connection.Open();
 
                     SqlCommand command = new SqlCommand(GetRouteQuery, connection);
-                    command.Parameters.AddWithValue("@name", r.RouteName);
+                    command.Parameters.AddWithValue("@routeId", r.RouteID);
                     SqlDataReader reader = command.ExecuteReader();
 
                     while (reader.Read())
@@ -61,7 +63,7 @@ namespace Capstone.Web.DAL
 
                     foreach (string wayPoint in r.Waypoints)
                     {
-                        command = new SqlCommand(InsertWayPointQuery, connection);
+                        command = new SqlCommand(InsertWayPointsQuery, connection);
                         command.Parameters.AddWithValue("@wayPoint", wayPoint);
                         command.Parameters.AddWithValue("@routeName", r.RouteName);
 
@@ -69,6 +71,40 @@ namespace Capstone.Web.DAL
                     }
 
                     return rowsAffected == r.Waypoints.Count();
+                }
+            }
+            catch (SqlException e)
+            {
+                throw;
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public List<Route> GetAllRoutes()
+        {
+            try
+            {
+                List<Route> routes = new List<Route>();
+                using(SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    SqlCommand command = new SqlCommand(GetAllRoutesQuery, connection);
+
+                    SqlDataReader reader = command.ExecuteReader();
+                    
+                    while (reader.Read())
+                    {
+                        Route r = new Route();
+                        r.RouteName = Convert.ToString(reader["route_id"]);
+                        r.RouteID = Convert.ToInt32(reader["route_id"]);
+
+                        routes.Add(r);
+                    }
+                    return routes;
                 }
             }
             catch (SqlException e)
