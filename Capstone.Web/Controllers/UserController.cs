@@ -45,5 +45,13 @@ namespace Capstone.Web.Controllers
         {
             return View();
         }
+
+        //Get: Logout
+        public ActionResult Logout()
+        {
+            Session.Abandon();
+
+            return Redirect(Request.UrlReferrer.ToString());
+        }
     }
 }
