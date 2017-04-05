@@ -35,8 +35,18 @@
                         <li>@Html.ActionLink("Create Route", "Create", "Route")</li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li>@Html.ActionLink("Register", "Register", "User")</li>
-                        <li>@Html.ActionLink("Login", "Index", "User")</li>
+                        @{
+                            if (false)                                  // if logged in (add check to session for username)
+                            {
+                                <li><a href="#">Username</a></li>       // Get Username from Session
+                                <li><a href="#">Logout</a></li>         // Link to dump session and reload page
+                            }
+                            else                                        // if not logged in
+                            {
+                                <li>@Html.ActionLink("Register", "Register", "User")</li>
+                                <li>@Html.ActionLink("Login", "Index", "User")</li>
+                            }
+                        }
                     </ul>
                 </div>
                 <!-- /.navbar-collapse -->
