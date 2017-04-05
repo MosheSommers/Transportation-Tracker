@@ -31,6 +31,7 @@ namespace Capstone.Web.Controllers
             if (validatedUser.EmailAddress != null && validatedUser.Password == u.Password)
             {
                 Session["Login"] = validatedUser;
+                Session["UserName"] = email;
             }
             else
             {
@@ -43,6 +44,14 @@ namespace Capstone.Web.Controllers
         public ActionResult Register()
         {
             return View();
+        }
+
+        //Get: Logout
+        public ActionResult Logout()
+        {
+            Session.Abandon();
+
+            return Redirect(Request.UrlReferrer.ToString());
         }
     }
 }
