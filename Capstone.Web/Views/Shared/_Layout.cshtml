@@ -36,12 +36,12 @@
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         @{
-                            if (false)                                  // if logged in (add check to session for username)
+                            if (false)                                  // if session.username != null (logged in)
                             {
-                                <li><a href="#">Username</a></li>       // Get Username from Session
-                                <li><a href="#">Logout</a></li>         // Link to dump session and reload page
+                                <li><a href="#">Username</a></li>       // session.username
+                                <li><a href="#">Logout</a></li>         // DAL user.Logout()
                             }
-                            else                                        // if not logged in
+                            else                                        // if session.username == null (not logged in)
                             {
                                 <li>@Html.ActionLink("Register", "Register", "User")</li>
                                 <li>@Html.ActionLink("Login", "Index", "User")</li>
