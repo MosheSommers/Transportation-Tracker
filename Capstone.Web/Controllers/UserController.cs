@@ -31,6 +31,7 @@ namespace Capstone.Web.Controllers
             if (validatedUser.EmailAddress != null && validatedUser.Password == u.Password)
             {
                 Session["Login"] = validatedUser;
+                Session["UserName"] = email;
             }
             else
             {
