@@ -21,7 +21,8 @@ namespace Capstone.Web.Tests.DAL
         [TestInitialize]
         public void Initialize()
         {
-            using(SqlConnection connection = new SqlConnection(connectionString))
+            tran = new TransactionScope();
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
                 SqlCommand command = new SqlCommand("insert into routes values('testRoute');SELECT CAST(scope_identity() AS int)", connection);
@@ -37,7 +38,7 @@ namespace Capstone.Web.Tests.DAL
                 command.ExecuteNonQuery();
             }
             routeDAL = new RouteSqlDAL(connectionString);
-            tran = new TransactionScope();
+            
         }
 
         [TestCleanup]

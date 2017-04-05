@@ -10,7 +10,7 @@ namespace Capstone.Web.DAL
     public class UserSqlDAL : IUserDAL
     {
         private const string GetUserQuery = "select * from users where email_address = @email";
-        private const string InsertUserQuery = "insert into users (email_address, password, phone_number, is_admin) values(@email, @password, @phoneNumber, 0)";
+        private const string InsertUserQuery = "insert into users (email_address, password, salt, phone_number, is_admin) values(@email, @password, @salt, @phoneNumber, 0)";
 
         private string connectionString;
 
@@ -37,6 +37,7 @@ namespace Capstone.Web.DAL
                         returnedUser.EmailAddress = Convert.ToString(reader["email_address"]);
                         returnedUser.Phone = Convert.ToString(reader["phone_number"]);
                         returnedUser.Password = Convert.ToString(reader["password"]);
+                        returnedUser.Salt = Convert.ToString(reader["salt"]);
                         returnedUser.IsAdmin = Convert.ToBoolean(reader["is_admin"]);
                         returnedUser.UserID = Convert.ToInt32(reader["user_id"]);
                     }
@@ -65,6 +66,7 @@ namespace Capstone.Web.DAL
                     SqlCommand command = new SqlCommand(InsertUserQuery, connection);
                     command.Parameters.AddWithValue("@email", u.EmailAddress);
                     command.Parameters.AddWithValue("@password", u.Password);
+                    command.Parameters.AddWithValue("@salt", u.Salt);
                     command.Parameters.AddWithValue("phoneNumber", u.Phone);
                     command.Parameters.AddWithValue("@isAdmin", false);
 

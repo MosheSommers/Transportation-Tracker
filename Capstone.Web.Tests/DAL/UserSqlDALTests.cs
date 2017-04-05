@@ -26,7 +26,7 @@ namespace Capstone.Web.Tests.DAL
             using(SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                SqlCommand command = new SqlCommand("insert into users values('testemail', 'password', '1234567890', 1)", connection);
+                SqlCommand command = new SqlCommand("insert into users values('testemail', 'password','22222', '1234567890', 1)", connection);
                 command.ExecuteNonQuery();
             }
             userDal = new UserSqlDAL(connectionString);
@@ -53,7 +53,7 @@ namespace Capstone.Web.Tests.DAL
         public void InsertNewUserTest()
         {
             //UserSqlDAL userDal = new UserSqlDAL(connectionString);
-            User u = new User() { EmailAddress = "moshe@tester.com", IsAdmin = true, Password = "testpass", Phone = "1234567890" };
+            User u = new User() { EmailAddress = "moshe@tester.com", IsAdmin = true, Password = "testpass", Phone = "1234567890" , Salt = "12344"};
 
             Assert.IsTrue(userDal.InsertNewUser(u));
         }
