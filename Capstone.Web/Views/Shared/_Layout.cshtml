@@ -39,7 +39,7 @@
                             if (Session["Login"] != null)                                  // if session.username != null (logged in)
                             {
                                 <li><a href="#">@Session["UserName"]</a></li>               // session.username
-                                <li><a href="#">Logout</a></li>                             // DAL user.Logout()
+                                <li>@Html.ActionLink("Logout", "Logout", "User")</li>                             // DAL user.Logout()
                             }
                             else                                                            // if session.username == null (not logged in)
                             {
