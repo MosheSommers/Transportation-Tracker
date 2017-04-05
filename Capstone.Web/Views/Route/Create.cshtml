@@ -16,12 +16,21 @@
             <input id="RouteName" type="text" name="RouteName" /><br /><hr />
 
             <b>List of Stops:</b><br />
-            <input id="Waypoints[0]" class="waypointAdder" type="text" name="Waypoints[0]" /><br /><br />
-            <button type="button" id="add-btn">Add Another Stop</button><br /><hr />
-            <script>
+            <input id="Waypoints[0]" class="waypointAdder" type="text" name="Waypoints[0]" />
+            <input id="Waypoints[1]" class="waypointAdder" type="text" name="Waypoints[1]" />
+            <button type="button" id="add-btn">Add Another Stop</button>
+            <button type="button" id="rmv-btn">Remove A Stop</button><br /><hr />
+
+            <script> // Dynamic Button Creation for adding more waypoints
                 $('#add-btn').on('click', function () {
                     var currentStopCount = $('.waypointAdder').length;
                     $('.waypointAdder:last').after('<input type="text" class="waypointAdder" id="Waypoints[' + currentStopCount + ']" name="Waypoints[' + currentStopCount + ']"/>');
+                });
+                $('#rmv-btn').on('click', function () {
+                    var currentStopCount = $('.waypointAdder').length;
+                    if (currentStopCount > 2) {
+                        $('.waypointAdder:last').remove();
+                    }                    
                 });
 
             </script>
