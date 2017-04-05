@@ -6,5 +6,65 @@
 
 <h2>Routes</h2>
 
-<p>Dropdown List will Go Here</p>
-<iframe src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d33814.49695808741!2d-81.65713266773358!3d41.48677260855932!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sus!4v1491247315658" width="800px" height="600px" frameborder="0" style="border:0" allowfullscreen></iframe>
+<div id="map"></div>
+<div id="right-panel">
+    <div>
+        <form>
+            <p>DROPDOWN PLACEHOLDER</p>
+        </form>
+    </div>
+    <div id="directions-panel"></div>
+</div>
+
+<script>
+    function initMap() {
+        var directionsService = new google.maps.DirectionsService;
+        var directionsDisplay = new google.maps.DirectionsRenderer;
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 10,
+            center: { lat: 41.4993, lng: -81.6944 }
+        });
+        directionsDisplay.setMap(map);
+
+        document.getElementById('submit').addEventListener('click', function () {       // Change this from "submit" to "dropdown updated"
+            calculateAndDisplayRoute(directionsService, directionsDisplay);
+        });
+    }
+
+    function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+
+        var waypts = []
+
+        directionsService.route({
+            origin: 'Cleveland',                                       // --> Get [0] on waypoint list from active dropdown
+            destination: 'Columbus',                                   // --> Get [n-1] on waypoint list from active dropdown
+            waypoints: waypts,                                         // --> Get [1]-[n-2] from waypoint list from active dropdown
+            optimizeWaypoints: true,
+            travelMode: 'DRIVING'
+        }, function (response, status) {
+            if (status === 'OK') {
+                directionsDisplay.setDirections(response);
+                var route = response.routes[0];
+                var summaryPanel = document.getElementById('directions-panel');
+                summaryPanel.innerHTML = '';
+
+                for (var i = 0; i < route.legs.length; i++) {
+                    var routeSegment = i + 1;
+                    summaryPanel.innerHTML += '<b>Stop: ' + routeSegment +
+                        '</b><br>';
+                    summaryPanel.innerHTML += route.legs[i].start_address + '<br>';
+                    if (i == route.legs.length - 1) {
+                        summaryPanel.innerHTML += '<b>Stop: ' + (routeSegment + 1) + '</b><br>';
+                        summaryPanel.innerHTML += route.legs[i].end_address;
+                    }
+                }
+            } else {
+                window.alert('Directions request failed due to ' + status);
+            }
+        });
+    }
+</script>
+
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC1daWs4KZZROhgz8DlBzFXdz80pSWo8Fs&callback=initMap">
+</script>
