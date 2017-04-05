@@ -9,8 +9,8 @@ namespace Capstone.Web.DAL
 {
     public class RouteSqlDAL : IRouteDAL
     {
-        private const string InsertWayPointsQuery = "insert into waypoints (waypoint_position, route_id) values(@wayPoint, (select route_id from routes where route_name = @routeName))";
-        private const string InsertRouoteQuery = "insert into routes values(@routeName)";
+        private const string InsertWayPointsQuery = "insert into waypoints (waypoint_position, route_id) values(@wayPoint, @routeId)";
+        private const string InsertRouoteQuery = "insert into routes values(@routeName);SELECT CAST(scope_identity() AS int)";
         private const string GetRouteQuery = "select waypoint_position from waypoints where route_id = (select route_id from routes where route_id = @routeId)";
         private const string GetAllRoutesQuery = "select * from routes";
 
@@ -57,7 +57,8 @@ namespace Capstone.Web.DAL
 
                     SqlCommand command = new SqlCommand(InsertRouoteQuery, connection);
                     command.Parameters.AddWithValue("@routeName", r.RouteName);
-                    command.ExecuteNonQuery();
+                    //command.ExecuteNonQuery();
+                    int id = (int)command.ExecuteScalar();
 
                     int rowsAffected = 0;
 
@@ -65,7 +66,7 @@ namespace Capstone.Web.DAL
                     {
                         command = new SqlCommand(InsertWayPointsQuery, connection);
                         command.Parameters.AddWithValue("@wayPoint", wayPoint);
-                        command.Parameters.AddWithValue("@routeName", r.RouteName);
+                        command.Parameters.AddWithValue("@routeId", id);
 
                         rowsAffected += command.ExecuteNonQuery();
                     }
