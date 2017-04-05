@@ -55,7 +55,7 @@ html, body {
 }
 
 .loginBox {
-    width: 25%;
+    width: 100%;
     padding: 12px 20px;
     margin: 8px 0;
     box-sizing: border-box;
@@ -68,23 +68,32 @@ html, body {
     border-radius: 5px;
 }
 .enter-info{
-    border: 5px solid red;
-    align-content: center;
+    /*border: 5px solid red;*/
+    /*border-bottom: .5px solid rgba(128, 128, 128, 0.16);*/
 
 }
 
 .tony {
     border: 5px solid green;
+    width: 50%;
     margin: auto;
+    text-align: center;
 
 }
 
 .rachel {
     border: 5px solid cyan;
+    width: 50%;
+    margin: auto;
+    text-align: center;
+    
 }
 
 .moshe{
    border: 5px solid purple;
+   margin: auto;
+   width: 50%;
+   
 }
 
 hr {
@@ -94,6 +103,8 @@ hr {
 }
 .submit {
     border-radius: 10px;
+
+    margin-left: 46%;
 }
 
 h2 {
