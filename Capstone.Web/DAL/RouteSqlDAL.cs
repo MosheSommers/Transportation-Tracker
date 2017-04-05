@@ -64,11 +64,14 @@ namespace Capstone.Web.DAL
 
                     foreach (string wayPoint in r.Waypoints)
                     {
+                        if (wayPoint != null && wayPoint != "")
+                        {
                         command = new SqlCommand(InsertWayPointsQuery, connection);
                         command.Parameters.AddWithValue("@wayPoint", wayPoint);
                         command.Parameters.AddWithValue("@routeId", id);
 
                         rowsAffected += command.ExecuteNonQuery();
+                        }
                     }
 
                     return rowsAffected == r.Waypoints.Count();
