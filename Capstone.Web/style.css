@@ -111,3 +111,13 @@ h2 {
     text-align: center;
     margin: auto;
 }
+#RouteName{
+    border-radius: 5px;
+}
+
+button{
+    border-radius: 10px;
+}
+#submit{
+    border-radius: 10px;
+}
