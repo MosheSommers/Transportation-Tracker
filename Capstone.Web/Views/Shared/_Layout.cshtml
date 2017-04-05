@@ -36,7 +36,7 @@
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         @{
-                            if (false)                                  // if session.username != null (logged in)
+                            if (Session["Login"] != null)                                  // if session.username != null (logged in)
                             {
                                 <li><a href="#">Username</a></li>       // session.username
                                 <li><a href="#">Logout</a></li>         // DAL user.Logout()
