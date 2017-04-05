@@ -73,24 +73,24 @@ html, body {
 
 }
 
-.tony {
-    border: 5px solid green;
+.username-box {
+    /*border: 5px solid green;*/
     width: 50%;
     margin: auto;
     text-align: center;
 
 }
 
-.rachel {
-    border: 5px solid cyan;
+.password-box {
+    /*border: 5px solid cyan;*/
     width: 50%;
     margin: auto;
     text-align: center;
     
 }
 
-.moshe{
-   border: 5px solid purple;
+.login-submit{
+   /*border: 5px solid purple;*/
    margin: auto;
    width: 50%;
    
@@ -120,4 +120,8 @@ button{
 }
 #submit{
     border-radius: 10px;
+}
+
+placeholder{
+    font-style: italic; 
 }
