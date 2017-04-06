@@ -48,6 +48,17 @@ CREATE table waypoints
 --	CONSTRAINT PK_private_group PRIMARY KEY (private_group_id)
 --);
 
+SET IDENTITY_INSERT users ON;
+
+Select * from users;
+
+
+INSERT INTO users (user_id, email_address, password, salt, is_admin)
+VALUES (1, 'funk@admin.com', 'password1234', 1234567890, 1);
+
+Update users 
+SET salt = 12345678
+Where user_id = 1;
 
 
 

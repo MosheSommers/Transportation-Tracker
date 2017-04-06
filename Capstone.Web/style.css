@@ -1,38 +1,24 @@
-body {
-    padding: 40px 10px;
-}
 
-#right-panel {
-    font-family: 'Roboto','sans-serif';
-    line-height: 30px;
-    padding-left: 10px;
-}
-
-    #right-panel select, #right-panel input {
-        font-size: 15px;
-    }
-
-    #right-panel select {
-        width: 100%;
-    }
-
-    #right-panel i {
-        font-size: 12px;
-    }
-
+/*_Layout:*/
 html, body {
     height: 100%;
     margin: 0;
     padding: 40px 10px;
 }
 
-#map {
-    height: 100%;
-    float: left;
-    width: 70%;
-    height: 100%;
+/*Layout*/
+button {
+    border-radius: 10px;
 }
 
+/*Home Index:*/
+.homepage {
+    height: 100%;
+    background: url(Content/Images/catbus.jpg) no-repeat center center fixed;
+    background-size: cover;
+}
+
+/*Route-Create:*/
 #right-panel {
     margin: 20px;
     border-width: 2px;
@@ -41,20 +27,86 @@ html, body {
     float: left;
     text-align: left;
     padding-top: 0;
+    padding-left: 10px;
+    font-family: 'Roboto','sans-serif';
+    line-height: 30px;
 }
 
+/*Route-Create:*/
+#right-panel select, #right-panel input {
+     font-size: 15px;
+}
+
+/*Route-Create:*/
+#right-panel select {
+      width: 100%;
+    }
+
+/*Route-Create:*/
+#right-panel i {
+        font-size: 12px;
+    }
+
+/*Route-Create*/
+.waypointAdder {
+    display: block;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+/*Route Create*/
+#RouteName {
+    border-radius: 5px;
+}
+
+/*Route-Create*/
+placeholder {
+    font-style: italic;
+}
+
+/*Route-Index:*/
+#map {
+    height: 100%;
+    float: left;
+    width: 70%;
+    height: 100%;
+}
+
+/*Route-Index*/
 #directions-panel {
     margin-top: 10px;
     background-color: #FFEE77;
     padding: 10px;
 }
 
+/*Possibly in User Index or Register*/
 #email-field {
     display: block;
     margin-left: 80px;
     text-align: left;
 }
 
+/*User-Index*/
+.username-box {
+    width: 50%;
+    margin: auto;
+    text-align: center;
+}
+
+/*User-Index*/
+.password-box {
+    width: 50%;
+    margin: auto;
+    text-align: center;
+}
+
+/*User-Index*/
+.login-submit {
+    margin: auto;
+    width: 50%;
+}
+
+/*Possibly in User Index*/
 .loginBox {
     width: 100%;
     padding: 12px 20px;
@@ -63,6 +115,25 @@ html, body {
     border-radius: 5px;
 }
 
+/*User-Index for styling purposes*/
+.enter-info {
+    /*border: 5px solid red;*/
+    /*border-bottom: .5px solid rgba(128, 128, 128, 0.16);*/
+}
+
+/*User-Index and User-Register*/
+.submit {
+    border-radius: 10px;
+    margin-left: 46%;
+}
+
+/*User-Index and User-Register*/
+h2 {
+    text-align: center;
+    margin: auto;
+}
+
+/*User-Register*/
 .regBox {
     width: 100%;
     padding: 12px 20px;
@@ -71,78 +142,21 @@ html, body {
     border-radius: 5px;
 }
 
-.waypointAdder {
-    display: block;
-    margin-bottom: 10px;
-    border-radius: 5px;
-}
-
-.enter-info {
-    /*border: 5px solid red;*/
-    /*border-bottom: .5px solid rgba(128, 128, 128, 0.16);*/
-}
-
-.username-box {
-    width: 50%;
-    margin: auto;
-    text-align: center;
-}
-
-.password-box {
-    width: 50%;
-    margin: auto;
-    text-align: center;
-}
-
+/*User-Register*/
 .phone-box {
     width: 50%;
     margin: auto;
     text-align: center;
 }
 
-.login-submit {
-    margin: auto;
-    width: 50%;
-}
-
+/*User-Register*/
 hr {
     border: 0;
     height: 5px;
     background-image: linear-gradient(to right, rgba(0, 0, 0, 0), #f00, rgba(0, 0, 0, 0));
 }
 
-.submit {
-    border-radius: 10px;
-    margin-left: 46%;
-}
-
-h2 {
-    text-align: center;
-    margin: auto;
-}
-
-#RouteName {
-    border-radius: 5px;
-}
-
-button {
-    border-radius: 10px;
-}
-
-#submit {
-    border-radius: 10px;
-}
-
-placeholder {
-    font-style: italic;
-}
-
-.homepage {
-    height: 100%;
-    background: url(Content/Images/catbus.jpg) no-repeat center center fixed;
-    background-size: cover;
-}
-
+/*User-Register*/
 .reg-submit {
     margin: auto;
     width: 50%;
