@@ -11,12 +11,18 @@
     <div>
         <form>
             @Html.Label("RouteID", "Select A Route")
-            @Html.DropDownList("RouteID",new SelectList(Model, "RouteID", "RouteName"))
-            <input type="submit" id="submit">
+            @Html.DropDownList("RouteID", new SelectList(Model, "RouteID", "RouteName"))
         </form>
+        <hr />
+        <button id="pushme">PUSH ME</button>
+
+        @*@Html.ActionLink("DO THE ACTION!", "WaypointList", null, new { id = "pushme" })*@
+
     </div>
     <div id="directions-panel"></div>
 </div>
+
+
 
 <script>
     function initMap() {
@@ -28,19 +34,35 @@
         });
         directionsDisplay.setMap(map);
 
-        document.getElementById('submit').addEventListener('click', function () {       // Change this from "submit" to "dropdown updated"
+        document.getElementById('pushme').addEventListener('click', function () {
             calculateAndDisplayRoute(directionsService, directionsDisplay);
         });
     }
 
     function calculateAndDisplayRoute(directionsService, directionsDisplay) {
 
-        var waypts = []
+        var routeID = document.getElementById('RouteID');
 
+        // Access the SQL database using the RouteID from the dropdown selection and create an array of waypoint (string) names
+        // Take the first one and set startPoint equal to it
+        // Take the last one and set endPoint equal to it
+        // Take any in between that (if they exist) and set the waypts array (strings) equal to them
+
+        //$.ajax({
+        //    url: $(this).attr("href"),
+        //    success: function () {
+        //        alert("Value Added");
+        //    }
+        //});
+
+        var startPoint = 'Cleveland';
+        var endPoint = 'Columbus';
+        var waypts = [];
+        
         directionsService.route({
-            origin: 'Cleveland',                                       // --> Get [0] on waypoint list from active dropdown
-            destination: 'Columbus',                                   // --> Get [n-1] on waypoint list from active dropdown
-            waypoints: waypts,                                         // --> Get [1]-[n-2] from waypoint list from active dropdown
+            origin: startPoint,
+            destination: endPoint,
+            waypoints: waypts,
             optimizeWaypoints: true,
             travelMode: 'DRIVING'
         }, function (response, status) {

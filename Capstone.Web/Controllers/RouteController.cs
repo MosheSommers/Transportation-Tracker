@@ -18,7 +18,7 @@ namespace Capstone.Web.Controllers
         // GET: Route
         public ActionResult Index()
         {
-           List<Route> routes = routeDal.GetAllRoutes();
+            List<Route> routes = routeDal.GetAllRoutes();
             return View(routes);
         }
 
@@ -43,6 +43,14 @@ namespace Capstone.Web.Controllers
         {
             routeDal.InsertRoute(r);
             return RedirectToAction("Index");
+        }
+
+
+        // (waypoints)
+        public JsonResult WaypointList(Route r)
+        {
+            List<string> waypoints = routeDal.GetRoute(r).Waypoints;
+            return Json(waypoints, JsonRequestBehavior.AllowGet);
         }
     }
 }
