@@ -52,11 +52,19 @@ namespace Capstone.Web.Controllers
         public ActionResult Register(String email, String password, String phone)
         {
             User u = new Models.User() { EmailAddress = email, Password = password, Phone = phone };
-            userDAL.InsertNewUser(u);
-            User validatedUser = userDAL.GetUser(u);
-            Session["Login"] = validatedUser;
+            if (userDAL.GetUser(u).EmailAddress != u.EmailAddress)
+            {
+                userDAL.InsertNewUser(u);
+                User validatedUser = userDAL.GetUser(u);
+                Session["Login"] = validatedUser;
 
-            return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return View();
+            }
+
         }
 
         // GET: Logout

@@ -3,25 +3,25 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Register</h2>
+<h2>Register</h2><hr />
 <div>
     <div class="enter-info">
-        <form name="frm2" action="@Url.Action("Register", "User")" method="post">
+        <form name="frm1" action="@Url.Action("Register", "User")" method="post">
             <div class="username-box">
-                <label for="email">Email Address</label>
+                <label for="email">Username or E-mail Address</label>
                 <input class="regBox" type="text" name="email" id="email" placeholder="janedoe@johnsmith.com" />
             </div>
             <div class="password-box">
-                <label for="password"> Password</label>
+                <label for="password">Password</label>
                 <input class="regBox" type="password" name="password" id="password" placeholder="Password1234" />
             </div>
             <div class="password-box">
-                <label for="confPassword"> Confirm Password</label>
+                <label for="confPassword">Confirm Password</label>
                 <input class="regBox" type="password" name="confPassword" id="confPassword" placeholder="Password1234" />
             </div>
             <div class="phone-box">
-                <label for="phone"> Phone Number</label>
-                <input class="phone" type="tel" name="phone" id="phone" placeholder="(216) 867-5309" />
+                <label for="phone">Phone Number</label>
+                <input class="regBox" type="tel" name="phone" id="phone" placeholder="(216) 867-5309" />
             </div>
 
 

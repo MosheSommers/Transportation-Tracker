@@ -1,28 +1,26 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Login";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2 class="login">Login</h2><hr />
 <div>
-   
     <div class="enter-info">
-    <form name="frm1" action= "@Url.Action("LoginPost", "User")" method="post">
-        <div class="username-box">
-            <label for="email"> Username or E-mail Address</label>
-            <input class="loginBox" type="text" name="email" id="email" placeholder="janedoe@johnsmith.com"/>
-            
-        </div>
-        <div class="password-box">
-            <label for="password"> Password</label>
-            <input class="loginBox" type="password" name="password" id="password" placeholder="Password1234"/>
-            
-        </div>
-        <hr />
-        <div class="login-submit">
-            <input class="submit" type="submit" value="Submit" />
-        </div>
-    </form>
+        <form name="frm1" action="@Url.Action("LoginPost", "User")" method="post">
+            <div class="username-box">
+                <label for="email"> Username or E-mail Address</label>
+                <input class="loginBox" type="text" name="email" id="email" placeholder="janedoe@johnsmith.com" />
+
+            </div>
+            <div class="password-box">
+                <label for="password"> Password</label>
+                <input class="loginBox" type="password" name="password" id="password" placeholder="Password1234" />
+
+            </div>
+            <hr />
+            <div class="login-submit">
+                <input class="submit" type="submit" value="Submit" />
+            </div>
+        </form>
     </div>
 </div>
