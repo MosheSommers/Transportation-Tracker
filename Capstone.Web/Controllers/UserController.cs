@@ -28,21 +28,30 @@ namespace Capstone.Web.Controllers
         [HttpPost]
         public ActionResult LoginPost(String email, String password)
         {
-            HashProvider hashProvider = new HashProvider();
-            string hashedPassword = hashProvider.HashPassword(password); //<-- password they provided during registration
-            User u = new User() { EmailAddress = email, Password = hashedPassword };
-            User validatedUser = userDAL.GetUser(u);
-
-            bool passwordMatches = hashProvider.VerifyPasswordMatch(u.Password, password, validatedUser.Salt); 
-
-            if (validatedUser.EmailAddress != null && passwordMatches)
+            if (email != null && email != "")
             {
-                Session["Login"] = validatedUser;
+                HashProvider hashProvider = new HashProvider();
+
+                User u = new User() { EmailAddress = email };
+                User validatedUser = userDAL.GetUser(u);
+
+                if (validatedUser != null)
+                {
+
+                    bool passwordMatches = hashProvider.VerifyPasswordMatch(validatedUser.Password, password, validatedUser.Salt);
+
+                    if (validatedUser.EmailAddress != null && passwordMatches)
+                    {
+                        Session["Login"] = validatedUser;
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index");
+                    }
+                }
+
             }
-            else
-            {
-                return RedirectToAction("Index");
-            }
+
             return RedirectToAction("Index", "Home");
         }
 
