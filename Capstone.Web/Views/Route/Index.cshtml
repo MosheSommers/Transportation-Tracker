@@ -10,6 +10,7 @@
 <div id="right-panel">
     <div>
         <form>
+            @Html.Label("RouteID", "Select A Route")
             @Html.DropDownList("RouteID",new SelectList(Model, "RouteID", "RouteName"))
             <input type="submit" id="submit">
         </form>

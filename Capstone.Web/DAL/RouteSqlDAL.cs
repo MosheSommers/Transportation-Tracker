@@ -56,7 +56,7 @@ namespace Capstone.Web.DAL
                     connection.Open();
 
                     SqlCommand command = new SqlCommand(InsertRouoteQuery, connection);
-                    command.Parameters.AddWithValue("@routeName", r.RouteName);
+                    command.Parameters.AddWithValue("@routeName", r.RouteName[0].ToString().ToUpper() + r.RouteName.Substring(1));
                     //command.ExecuteNonQuery();
                     int id = (int)command.ExecuteScalar();
 
