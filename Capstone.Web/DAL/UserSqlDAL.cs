@@ -66,7 +66,7 @@ namespace Capstone.Web.DAL
                     SqlCommand command = new SqlCommand(InsertUserQuery, connection);
                     command.Parameters.AddWithValue("@email", u.EmailAddress);
                     command.Parameters.AddWithValue("@password", u.Password);
-                    command.Parameters.AddWithValue("@salt", u.Salt);
+                    command.Parameters.AddWithValue("@salt", "abcdefghij");//u.Salt);  CURRENTLY USING A FAKE SALT FOR TESTING
                     command.Parameters.AddWithValue("phoneNumber", u.Phone);
                     command.Parameters.AddWithValue("@isAdmin", false);
 

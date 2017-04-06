@@ -23,6 +23,7 @@ namespace Capstone.Web.Controllers
             return View();
         }
 
+        // POST: Login
         [HttpPost]
         public ActionResult LoginPost(String email, String password)
         {
@@ -31,8 +32,6 @@ namespace Capstone.Web.Controllers
             if (validatedUser.EmailAddress != null && validatedUser.Password == u.Password)
             {
                 Session["Login"] = validatedUser;
-                Session["UserName"] = email;
-                
             }
             else
             {
@@ -41,13 +40,26 @@ namespace Capstone.Web.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        //Get: Register
+        // GET: Register
+        [HttpGet]
         public ActionResult Register()
         {
             return View();
         }
 
-        //Get: Logout
+        // POST: Register
+        [HttpPost]
+        public ActionResult Register(String email, String password, String phone)
+        {
+            User u = new Models.User() { EmailAddress = email, Password = password, Phone = phone };
+            userDAL.InsertNewUser(u);
+            User validatedUser = userDAL.GetUser(u);
+            Session["Login"] = validatedUser;
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        // GET: Logout
         public ActionResult Logout()
         {
             Session.Abandon();

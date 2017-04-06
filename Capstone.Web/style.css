@@ -48,8 +48,9 @@ html, body {
     background-color: #FFEE77;
     padding: 10px;
 }
-#email-field{
-    display:block;
+
+#email-field {
+    display: block;
     margin-left: 80px;
     text-align: left;
 }
@@ -62,38 +63,46 @@ html, body {
     border-radius: 5px;
 }
 
-.waypointAdder{
-    display:block;
+.regBox {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border-radius: 5px;
+}
+
+.waypointAdder {
+    display: block;
     margin-bottom: 10px;
     border-radius: 5px;
 }
-.enter-info{
+
+.enter-info {
     /*border: 5px solid red;*/
     /*border-bottom: .5px solid rgba(128, 128, 128, 0.16);*/
-
 }
 
 .username-box {
-    /*border: 5px solid green;*/
     width: 50%;
     margin: auto;
     text-align: center;
-
 }
 
 .password-box {
-    /*border: 5px solid cyan;*/
     width: 50%;
     margin: auto;
     text-align: center;
-    
 }
 
-.login-submit{
-   /*border: 5px solid purple;*/
-   margin: auto;
-   width: 50%;
-   
+.phone-box {
+    width: 50%;
+    margin: auto;
+    text-align: center;
+}
+
+.login-submit {
+    margin: auto;
+    width: 50%;
 }
 
 hr {
@@ -101,9 +110,9 @@ hr {
     height: 5px;
     background-image: linear-gradient(to right, rgba(0, 0, 0, 0), #f00, rgba(0, 0, 0, 0));
 }
+
 .submit {
     border-radius: 10px;
-
     margin-left: 46%;
 }
 
@@ -111,23 +120,30 @@ h2 {
     text-align: center;
     margin: auto;
 }
-#RouteName{
+
+#RouteName {
     border-radius: 5px;
 }
 
-button{
-    border-radius: 10px;
-}
-#submit{
+button {
     border-radius: 10px;
 }
 
-placeholder{
-    font-style: italic; 
+#submit {
+    border-radius: 10px;
 }
+
+placeholder {
+    font-style: italic;
+}
+
 .homepage {
     height: 100%;
-    background:url(Content/Images/catbus.jpg) no-repeat center center fixed;
+    background: url(Content/Images/catbus.jpg) no-repeat center center fixed;
     background-size: cover;
 }
 
+.reg-submit {
+    margin: auto;
+    width: 50%;
+}
