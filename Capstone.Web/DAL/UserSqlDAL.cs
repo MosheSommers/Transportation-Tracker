@@ -47,11 +47,12 @@ namespace Capstone.Web.DAL
             catch (SqlException e)
             {
                 throw;
-              
+                return null;
             }
             catch (Exception)
             {
                 throw;
+                return null;
             }
         }
 

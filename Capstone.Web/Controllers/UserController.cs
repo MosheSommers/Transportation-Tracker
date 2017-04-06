@@ -35,7 +35,7 @@ namespace Capstone.Web.Controllers
                 User u = new User() { EmailAddress = email };
                 User validatedUser = userDAL.GetUser(u);
 
-                if (validatedUser != null)
+                if (validatedUser != null && validatedUser.Password != null && validatedUser.Salt != null)
                 {
 
                     bool passwordMatches = hashProvider.VerifyPasswordMatch(validatedUser.Password, password, validatedUser.Salt);
@@ -52,7 +52,7 @@ namespace Capstone.Web.Controllers
 
             }
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index");
         }
 
         // GET: Register
