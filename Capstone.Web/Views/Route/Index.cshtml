@@ -1,4 +1,4 @@
-﻿@model List<Route>
+﻿@model List<Capstone.Web.Models.Route>
 @{
     ViewBag.Title = "Routes";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -10,7 +10,7 @@
 <div id="right-panel">
     <div>
         <form>
-            <p>DROPDOWN PLACEHOLDER</p>
+            @Html.DropDownList("RouteID",new SelectList(Model, "RouteID", "RouteName"))
             <input type="submit" id="submit">
         </form>
     </div>

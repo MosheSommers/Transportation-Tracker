@@ -18,7 +18,8 @@ namespace Capstone.Web.Controllers
         // GET: Route
         public ActionResult Index()
         {
-            return View();
+           List<Route> routes = routeDal.GetAllRoutes();
+            return View(routes);
         }
 
 

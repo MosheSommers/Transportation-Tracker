@@ -103,7 +103,7 @@ namespace Capstone.Web.DAL
                     while (reader.Read())
                     {
                         Route r = new Route();
-                        r.RouteName = Convert.ToString(reader["route_id"]);
+                        r.RouteName = Convert.ToString(reader["route_name"]);
                         r.RouteID = Convert.ToInt32(reader["route_id"]);
 
                         routes.Add(r);
