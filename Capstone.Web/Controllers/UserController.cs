@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Capstone.Web.DAL;
 using Capstone.Web.Models;
+using Capstone.Web.Security;
 
 namespace Capstone.Web.Controllers
 {
@@ -27,9 +28,14 @@ namespace Capstone.Web.Controllers
         [HttpPost]
         public ActionResult LoginPost(String email, String password)
         {
-            User u = new User() { EmailAddress = email, Password = password };
+            HashProvider hashProvider = new HashProvider();
+            string hashedPassword = hashProvider.HashPassword(password); //<-- password they provided during registration
+            User u = new User() { EmailAddress = email, Password = hashedPassword };
             User validatedUser = userDAL.GetUser(u);
-            if (validatedUser.EmailAddress != null && validatedUser.Password == u.Password)
+
+            bool passwordMatches = hashProvider.VerifyPasswordMatch(u.Password, password, validatedUser.Salt); 
+
+            if (validatedUser.EmailAddress != null && passwordMatches)
             {
                 Session["Login"] = validatedUser;
             }
@@ -54,6 +60,11 @@ namespace Capstone.Web.Controllers
             User u = new Models.User() { EmailAddress = email, Password = password, Phone = phone };
             if (userDAL.GetUser(u).EmailAddress != u.EmailAddress)
             {
+                HashProvider hashProvider = new HashProvider();
+                string hashedPassword = hashProvider.HashPassword(u.Password); //<-- password they provided during registration
+                string salt = hashProvider.SaltValue;
+                u.Salt = salt;
+                u.Password = hashedPassword;
                 userDAL.InsertNewUser(u);
                 User validatedUser = userDAL.GetUser(u);
                 Session["Login"] = validatedUser;
