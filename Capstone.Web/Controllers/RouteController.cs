@@ -25,7 +25,15 @@ namespace Capstone.Web.Controllers
         // GET: Create
         public ActionResult Create()
         {
-            return View();
+            var user = (Capstone.Web.Models.User)Session["Login"];
+            if (user != null && user.IsAdmin)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
 
         // POST: Create

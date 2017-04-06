@@ -32,6 +32,7 @@ namespace Capstone.Web.Controllers
             {
                 Session["Login"] = validatedUser;
                 Session["UserName"] = email;
+                
             }
             else
             {

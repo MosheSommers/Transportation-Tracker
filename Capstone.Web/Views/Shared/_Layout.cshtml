@@ -30,16 +30,24 @@
                 </div>
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+
                     <ul class="nav navbar-nav">
                         <li>@Html.ActionLink("Routes", "Index", "Route")</li>
-                        <li>@Html.ActionLink("Create Route", "Create", "Route")</li>
+                        @{
+                            var user = (Capstone.Web.Models.User)Session["Login"];
+                            if (@user != null && @user.IsAdmin)
+                            {
+                                <li>@Html.ActionLink("Create Route", "Create", "Route")</li>
+                            }
+                        }
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         @{
                             if (Session["Login"] != null)                                  // if session.username != null (logged in)
                             {
-                                <li><a href="#">@Session["UserName"]</a></li>               // session.username
-                                <li>@Html.ActionLink("Logout", "Logout", "User")</li>                             // DAL user.Logout()
+                                <li><a href="#">@user.EmailAddress</a></li>
+                                <li>@Html.ActionLink("Logout", "Logout", "User")</li>      // DAL user.Logout()
                             }
                             else                                                            // if session.username == null (not logged in)
                             {
