@@ -3,5 +3,15 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@{
+
+    if (Session["Login"] != null)                                  // if session.username != null (logged in)
+    {
+        var user = (Capstone.Web.Models.User)Session["Login"];
+        <h2>Welcome to CLE|omnibus, @user.EmailAddress</h2>
+    }
+}
+
 <div class="homepage">
+
 </div>

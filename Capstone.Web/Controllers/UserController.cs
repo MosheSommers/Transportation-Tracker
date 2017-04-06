@@ -43,6 +43,7 @@ namespace Capstone.Web.Controllers
                     if (validatedUser.EmailAddress != null && passwordMatches)
                     {
                         Session["Login"] = validatedUser;
+                        return RedirectToAction("Index", "Home");
                     }
                     else
                     {
