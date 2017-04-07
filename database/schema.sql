@@ -33,8 +33,7 @@ CREATE table waypoints
 (
 	waypoint_id int Identity(1,1),
 	waypoint_position varChar(200),
-	--waypoint_name varChar(50),
-	--stop_number int, 
+	stop_time Time,
 	route_id int FOREIGN KEY REFERENCES routes(route_id),
 	CONSTRAINT PK_waypoint_id PRIMARY KEY (waypoint_id)	
 );
@@ -49,16 +48,6 @@ CREATE table waypoints
 --);
 
 SET IDENTITY_INSERT users ON;
-
-Select * from users;
-
-
-INSERT INTO users (user_id, email_address, password, salt, is_admin)
-VALUES (1, 'funk@admin.com', 'password1234', 1234567890, 1);
-
-Update users 
-SET salt = 12345678
-Where user_id = 1;
 
 
 
