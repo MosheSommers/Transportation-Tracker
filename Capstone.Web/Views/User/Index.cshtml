@@ -24,8 +24,14 @@
             </div>
             <div class="password-box">
                 <label for="Password"> Password</label>
-               
+               @if (Model != null)
+               {
+                <input class="loginBox" type="password" name="Password" id="password" placeholder="Password1234" value="@Model.Password"/>
+               }
+               else
+               {
                 <input class="loginBox" type="password" name="Password" id="password" placeholder="Password1234" />
+               }
 
                 @Html.ValidationMessageFor(m => m.Password)
             </div>

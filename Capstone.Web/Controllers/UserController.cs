@@ -70,18 +70,26 @@ namespace Capstone.Web.Controllers
 
         // POST: Register
         [HttpPost]
-        public ActionResult Register(String email, String password, String phone)
+        public ActionResult Register(User model)
         {
-            User u = new Models.User() { EmailAddress = email, Password = password, Phone = phone };
-            if (userDAL.GetUser(u).EmailAddress != u.EmailAddress)
+            if (model.Password != model.ConfirmedPassword && !String.IsNullOrEmpty(model.Password))
+            {
+                ModelState.AddModelError("UnconfirmedPassword", "Please Confirm Your Password.");
+            }
+            if (!ModelState.IsValid)
+            {
+                return View("Register", model);
+            }
+        
+            if (userDAL.GetUser(model).EmailAddress != model.EmailAddress)
             {
                 HashProvider hashProvider = new HashProvider();
-                string hashedPassword = hashProvider.HashPassword(u.Password); //<-- password they provided during registration
+                string hashedPassword = hashProvider.HashPassword(model.Password); //<-- password they provided during registration
                 string salt = hashProvider.SaltValue;
-                u.Salt = salt;
-                u.Password = hashedPassword;
-                userDAL.InsertNewUser(u);
-                User validatedUser = userDAL.GetUser(u);
+                model.Salt = salt;
+                model.Password = hashedPassword;
+                userDAL.InsertNewUser(model);
+                User validatedUser = userDAL.GetUser(model);
                 Session["Login"] = validatedUser;
 
                 return RedirectToAction("Index", "Home");
