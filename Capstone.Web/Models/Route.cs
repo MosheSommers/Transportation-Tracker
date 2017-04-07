@@ -7,7 +7,15 @@ namespace Capstone.Web.Models
 {
     public class Route
     {
-        public string RouteName { get; set; }
+        
+        private string routeName;
+
+        public string RouteName
+        {
+            get { return routeName; }
+            set { routeName = value.ToUpper(); }
+        }
+
         public int RouteID { get; set; }
         public int PrivateNumber { get; set; }
         public string CreatedBy { get; set; }
