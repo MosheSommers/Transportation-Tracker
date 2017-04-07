@@ -10,7 +10,7 @@ namespace Capstone.Web.DAL
     public class RouteSqlDAL : IRouteDAL
     {
         private const string InsertWayPointsQuery = "insert into waypoints (waypoint_position, route_id) values(@wayPoint, @routeId)";
-        private const string InsertRouoteQuery = "insert into routes values(@routeName);SELECT CAST(scope_identity() AS int)";
+        private const string InsertRouteQuery = "insert into routes values(@routeName);SELECT CAST(scope_identity() AS int)";
         private const string GetRouteQuery = "select waypoint_position from waypoints where route_id = @routeId";
         private const string GetAllRoutesQuery = "select * from routes";
 
@@ -30,6 +30,7 @@ namespace Capstone.Web.DAL
 
                     SqlCommand command = new SqlCommand(GetRouteQuery, connection);
                     command.Parameters.AddWithValue("@routeId", r.RouteID);
+                   // command.Parameters.AddWithValue("")
                     SqlDataReader reader = command.ExecuteReader();
 
                     while (reader.Read())
@@ -55,7 +56,7 @@ namespace Capstone.Web.DAL
                 {
                     connection.Open();
 
-                    SqlCommand command = new SqlCommand(InsertRouoteQuery, connection);
+                    SqlCommand command = new SqlCommand(InsertRouteQuery, connection);
                     command.Parameters.AddWithValue("@routeName", r.RouteName);
                     int id = (int)command.ExecuteScalar();
 

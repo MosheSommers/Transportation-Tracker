@@ -52,5 +52,15 @@ namespace Capstone.Web.Controllers
             List<string> waypoints = routeDal.GetRoute(new Models.Route { RouteID = routeID }).Waypoints;
             return Json(waypoints, JsonRequestBehavior.AllowGet);
         }
+
+        //POST: Edit
+        [HttpPost]
+        public ActionResult Edit(int routeID)
+        {
+            Route routeToEdit = routeDal.GetRoute(new Route { RouteID = routeID });
+
+            return View("Edit", routeToEdit);
+        }
+
     }
 }

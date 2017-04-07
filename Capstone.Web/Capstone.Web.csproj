@@ -165,6 +165,7 @@
     <Content Include="Views\User\Register.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Route\Create.cshtml" />
+    <Content Include="Views\Route\Edit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

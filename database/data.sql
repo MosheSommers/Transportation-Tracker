@@ -5,14 +5,12 @@
 BEGIN;
 
 -- INSERT statements go here
-USE [omnibus]
-GO
+
 
 INSERT INTO [dbo].[routes]
            ([route_name])
      VALUES
            (<route_name, varchar(100),>)
-GO
 
 INSERT INTO [dbo].[users]
            ([email_address]
@@ -21,16 +19,11 @@ INSERT INTO [dbo].[users]
            ,[phone_number]
            ,[is_admin])
      VALUES
-           (<email_address, varchar(150),>
-           ,<password, varchar(50),>
-           ,<salt, varchar(10),>
-           ,<phone_number, varchar(10),>
-           ,<is_admin, bit,>)
-GO
-
-USE [omnibus]
-
-GO
+           (<email_address, admin@admin.com>
+           ,<password, admin,>
+           ,<salt, salt,>
+           ,<phone_number, 123456890,>
+           ,<is_admin, 1>)
 
 INSERT INTO [dbo].[waypoints]
            ([waypoint_position]
@@ -42,7 +35,7 @@ INSERT INTO [dbo].[waypoints]
            ,<waypoint_name, varchar(50),>
            ,<stop_number, int,>
            ,<route_id, int,>)
-GO
+
 
 
 
