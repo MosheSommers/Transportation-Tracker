@@ -11,9 +11,9 @@ namespace Capstone.Web.DAL
     {
         private const string InsertWayPointsQuery = "insert into waypoints (waypoint_position, route_id) values(@wayPoint, @routeId)";
         private const string InsertRouteQuery = "insert into routes values(@routeName);SELECT CAST(scope_identity() AS int)";
-        private const string GetRouteQuery = "select waypoint_position from waypoints where route_id = @routeId";
+        private const string GetWaypointsQuery = "select waypoint_position from waypoints where route_id = @routeId";
         private const string GetAllRoutesQuery = "select * from routes";
-
+        private const string GetRouteName = "select route_name from routes where route_id = @routeId";
         private string connectionString;
 
         public RouteSqlDAL(string connectionString)
@@ -27,11 +27,19 @@ namespace Capstone.Web.DAL
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
-
-                    SqlCommand command = new SqlCommand(GetRouteQuery, connection);
+                    SqlCommand command = new SqlCommand(GetRouteName, connection);
                     command.Parameters.AddWithValue("@routeId", r.RouteID);
-                   // command.Parameters.AddWithValue("")
                     SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        r.RouteName = Convert.ToString(reader["route_name"]);
+                    }
+                    reader.Close();
+
+                    command = new SqlCommand(GetWaypointsQuery, connection);
+                    command.Parameters.AddWithValue("@routeId", r.RouteID);
+                   
+                    reader = command.ExecuteReader();
 
                     while (reader.Read())
                     {
