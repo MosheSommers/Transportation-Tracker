@@ -49,7 +49,6 @@ namespace Capstone.Web.Controllers
         // (waypoints)
         public JsonResult WaypointList(int routeID)
         {
-
             List<string> waypoints = routeDal.GetRoute(new Models.Route { RouteID = routeID }).Waypoints;
             return Json(waypoints, JsonRequestBehavior.AllowGet);
         }
