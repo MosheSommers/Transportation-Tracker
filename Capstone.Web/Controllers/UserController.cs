@@ -26,19 +26,24 @@ namespace Capstone.Web.Controllers
 
         // POST: Login
         [HttpPost]
-        public ActionResult LoginPost(String email, String password)
+        public ActionResult LoginPost(User model)
         {
-            if (email != null && email != "")
+
+            if (!ModelState.IsValid)
+            {
+                return View("Index", model);
+            }
+            if (model.EmailAddress != null && model.EmailAddress != "")
             {
                 HashProvider hashProvider = new HashProvider();
 
-                User u = new User() { EmailAddress = email };
+                User u = new User() { EmailAddress = model.EmailAddress };
                 User validatedUser = userDAL.GetUser(u);
 
                 if (validatedUser != null && validatedUser.Password != null && validatedUser.Salt != null)
                 {
 
-                    bool passwordMatches = hashProvider.VerifyPasswordMatch(validatedUser.Password, password, validatedUser.Salt);
+                    bool passwordMatches = hashProvider.VerifyPasswordMatch(validatedUser.Password, model.Password, validatedUser.Salt);
 
                     if (validatedUser.EmailAddress != null && passwordMatches)
                     {
