@@ -15,49 +15,52 @@
         </form>
         <hr />
         <button id="pushme">PUSH ME</button>
-
-        @*@Html.ActionLink("DO THE ACTION!", "WaypointList", null, new { id = "pushme" })*@
-
     </div>
     <div id="directions-panel"></div>
 </div>
 
-
-
 <script>
+    $(document).ready(function () {
+        $('#RouteID').on('change', function () {
+            $.ajax({
+                url: "route/waypointlist",
+                data: {
+                    routeId: $(this).val()
+                },
+                method: "GET"
+            }).done(function (waypoints) {
+                //alert("hi there");
+                console.log(waypoints);
+                calculateAndDisplayRoute(directionsService, directionsDisplay, waypoints);
+            });
+        });
+    });
+
+    var directionsService;
+    var directionsDisplay;
+
     function initMap() {
-        var directionsService = new google.maps.DirectionsService;
-        var directionsDisplay = new google.maps.DirectionsRenderer;
+        directionsService = new google.maps.DirectionsService;
+        directionsDisplay = new google.maps.DirectionsRenderer;
         var map = new google.maps.Map(document.getElementById('map'), {
             zoom: 10,
             center: { lat: 41.4993, lng: -81.6944 }
         });
         directionsDisplay.setMap(map);
+            }
 
-        document.getElementById('pushme').addEventListener('click', function () {
-            calculateAndDisplayRoute(directionsService, directionsDisplay);
-        });
-    }
-
-    function calculateAndDisplayRoute(directionsService, directionsDisplay) {
-
-        var routeID = document.getElementById('RouteID');
-
-        // Access the SQL database using the RouteID from the dropdown selection and create an array of waypoint (string) names
-        // Take the first one and set startPoint equal to it
-        // Take the last one and set endPoint equal to it
-        // Take any in between that (if they exist) and set the waypts array (strings) equal to them
-
-        //$.ajax({
-        //    url: $(this).attr("href"),
-        //    success: function () {
-        //        alert("Value Added");
-        //    }
-        //});
-
-        var startPoint = 'Cleveland';
-        var endPoint = 'Columbus';
+    function calculateAndDisplayRoute(directionsService, directionsDisplay, JSONWaypoints) {
+                       
+        var startPoint = JSONWaypoints[0];
+        var endPoint = JSONWaypoints[JSONWaypoints.length - 1];
         var waypts = [];
+
+        for (var i = 1; i <= JSONWaypoints.length - 2; i++) {
+            waypts.push({
+                location: JSONWaypoints[i],
+                stopover: true
+            });
+        }
         
         directionsService.route({
             origin: startPoint,
