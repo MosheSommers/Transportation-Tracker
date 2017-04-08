@@ -11,7 +11,7 @@
     <div>
         <form action="@Url.Action("Edit")" method="post">
             @Html.Label("RouteID", "Select A Route")
-            @Html.DropDownList("RouteID", new SelectList(Model, "RouteID", "RouteName"),"Choose a Route")
+            @Html.DropDownList("RouteID", new SelectList(Model, "RouteID", "RouteName"), "Choose a Route")
         </form>
         <hr />
     </div>
@@ -31,7 +31,9 @@
                 },
                 method: "GET"
             }).done(function (waypoints) {
-                $('#RouteID').after('<button>Edit Route</button>');
+                if ($('#editRouteButton').length == 0) {
+                    $('#RouteID').after('<button id="editRouteButton">Edit Route</button>');
+                }
                 calculateAndDisplayRoute(directionsService, directionsDisplay, waypoints);
             });
         });
