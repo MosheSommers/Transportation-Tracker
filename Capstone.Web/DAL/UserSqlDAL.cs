@@ -11,6 +11,7 @@ namespace Capstone.Web.DAL
     {
         private const string GetUserQuery = "select * from users where email_address = @email";
         private const string InsertUserQuery = "insert into users (email_address, password, salt, phone_number, is_admin) values(@email, @password, @salt, @phoneNumber, 0)";
+        private const string InsertUserWithoutPhoneQuery = "insert into users (email_address, password, salt, is_admin) values(@email, @password, @salt, 0)";
 
         private string connectionString;
 
@@ -63,12 +64,21 @@ namespace Capstone.Web.DAL
                 using(SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
+                    SqlCommand command;
 
-                    SqlCommand command = new SqlCommand(InsertUserQuery, connection);
+                    if (u.Phone != null && u.Phone != "")
+                    {
+                        command = new SqlCommand(InsertUserQuery, connection);
+                        command.Parameters.AddWithValue("@phoneNumber", u.Phone);
+                    }
+                    else
+                    {
+                        command = new SqlCommand(InsertUserWithoutPhoneQuery, connection);
+                    }
+                    
                     command.Parameters.AddWithValue("@email", u.EmailAddress);
                     command.Parameters.AddWithValue("@password", u.Password);
                     command.Parameters.AddWithValue("@salt", u.Salt); 
-                    command.Parameters.AddWithValue("phoneNumber", u.Phone);
                     command.Parameters.AddWithValue("@isAdmin", false);
 
                     int rowsAffected = command.ExecuteNonQuery();
