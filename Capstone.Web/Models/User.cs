@@ -14,8 +14,6 @@ namespace Capstone.Web.Models
         public string EmailAddress { get; set; }
         [Required]
         public string Password { get; set; }
-        [Required]
-        public string ConfirmedPassword { get; set; }
 
         public string Phone { get; set; }
         public bool IsAdmin { get; set; }

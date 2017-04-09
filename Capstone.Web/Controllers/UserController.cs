@@ -29,10 +29,10 @@ namespace Capstone.Web.Controllers
         public ActionResult LoginPost(User model)
         {
 
-            //if (!ModelState.IsValid)
-            //{
-            //    return View("Index", model);
-            //}
+            if (!ModelState.IsValid)
+            {
+                return View("Index", model);
+            }
             if (model.EmailAddress != null && model.EmailAddress != "")
             {
                 HashProvider hashProvider = new HashProvider();
@@ -70,7 +70,7 @@ namespace Capstone.Web.Controllers
 
         // POST: Register
         [HttpPost]
-        public ActionResult Register(User model)
+        public ActionResult Register(RegisterUser model)
         {
             if (model.Password != model.ConfirmedPassword && !String.IsNullOrEmpty(model.Password))
             {
