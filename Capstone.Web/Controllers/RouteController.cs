@@ -22,7 +22,6 @@ namespace Capstone.Web.Controllers
             return View(routes);
         }
 
-
         // GET: Create
         public ActionResult Create()
         {
@@ -45,7 +44,6 @@ namespace Capstone.Web.Controllers
             return RedirectToAction("Index");
         }
 
-
         // (waypoints)
         public JsonResult WaypointList(int routeID)
         {
@@ -58,9 +56,15 @@ namespace Capstone.Web.Controllers
         public ActionResult Edit(int routeID)
         {
             Route routeToEdit = routeDal.GetRoute(new Route { RouteID = routeID });
-
             return View("Edit", routeToEdit);
         }
 
+        // POST: Edit; Save new Route
+        [HttpPost]
+        public ActionResult UpdateRoute(Route r) // need to somehow get the RouteID from this page's model
+        {
+            // Do the DAL stuff
+            return RedirectToAction("Index", "Route");
+        }
     }
 }
