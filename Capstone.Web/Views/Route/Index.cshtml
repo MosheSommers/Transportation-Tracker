@@ -32,7 +32,13 @@
                 method: "GET"
             }).done(function (waypoints) {
                 if ($('#editRouteButton').length == 0) {
-                    $('#RouteID').after('<button id="editRouteButton">Edit Route</button>');
+                    @{
+                        var user = (Capstone.Web.Models.User)Session["Login"];
+                        if (user != null && user.IsAdmin == true)
+                        {
+                           <text>$('#RouteID').after('<button id="editRouteButton">Edit Route</button>');</text>
+                        }
+                    }
                 }
                 calculateAndDisplayRoute(directionsService, directionsDisplay, waypoints);
             });
