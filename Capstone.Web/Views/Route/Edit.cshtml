@@ -22,7 +22,6 @@
                     <button type="button" id="add-btn[@i]" class="add-btn">Add Stop</button>
                     <button type="button" id="rmv-btn[@i]" class="rmv-btn">Remove Stop</button>
                     <hr />
-
                 </div>
             }
         }
@@ -31,11 +30,10 @@
 </div>
 
 <script>
-    $('.add-btn').on('click', function () {
+    $('form').on('click', '.add-btn', function () {
         var currentStopCount = $('.waypointAdder').length;
         var stopIndex = $(this).index('.add-btn');
 
-        //updates all waypoints (label, text, add button, remove button) after this to be + 1 their old value
         for (var i = currentStopCount - 1; i > stopIndex; i--) {
             $('#stopLabel\\[' + i + '\\]').text('Stop: ' + (i + 1));
             $('#stopLabel\\[' + i + '\\]').attr("id", "stopLabel\[" + (i + 1) + "\]");
@@ -43,19 +41,14 @@
             $('#add-btn\\[' + i + '\\]').attr("id", "add-btn\[" + (i + 1) + "\]");
             $('#rmv-btn\\[' + i + '\\]').attr("id", "rmv-btn\[" + (i + 1) + "\]");
         }
-
-        // adds a new waypoint div, text, add button, remove button
-        // PROBLEM: this very javascript function will not call properly from newly added buttons, this needs fixing
         $(this).parent().after("<div><p id='stopLabel\[" + (stopIndex + 1) + "\]' class='stopLabel'>Stop: " + (stopIndex + 1) + "</p><input id='Waypoints\[" + (stopIndex + 1) + "\]' class='waypointAdder' type='text' name='Waypoints\[" + (stopIndex + 1) + "\]' placeholder='New Waypoint'/><button type='button' id='add-btn\[" + (stopIndex + 1) + "\]' class='add-btn'>Add Stop</button><button type='button' id='rmv-btn\[" + (stopIndex + 1) + "\]' class='rmv-btn'>Remove Stop</button><hr \></div>");
-
     });
 
-    $('.rmv-btn').on('click', function () { 
+    $('form').on('click', '.rmv-btn', function () { 
         var currentStopCount = $('.waypointAdder').length;
         var stopIndex = $(this).index('.rmv-btn');
 
         if (currentStopCount > 2) {
-
             for (var i = stopIndex + 1; i < currentStopCount; i++) {
                 $('#stopLabel\\[' + i + '\\]').text('Stop: ' + (i - 1));
                 $('#stopLabel\\[' + i + '\\]').attr("id", "stopLabel\[" + (i - 1) + "\]");
