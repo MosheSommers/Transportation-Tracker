@@ -46,6 +46,15 @@
         $(this).parent().after("<div><p id='stopLabel\[" + (stopIndex + 1) + "\]' class='stopLabel'>Stop: " + (stopIndex + 2) + "</p><input id='Waypoints\[" + (stopIndex + 1) + "\]' class='waypointAdder' type='text' name='Waypoints\[" + (stopIndex + 1) + "\]' placeholder='New Waypoint'/><button type='button' id='add-btn\[" + (stopIndex + 1) + "\]' class='add-btn'>Add Stop</button><button type='button' id='rmv-btn\[" + (stopIndex + 1) + "\]' class='rmv-btn'>Remove Stop</button><hr \></div>");
     });
 
+    $('form').on('click', '.rmv-btn', function () { // Temporary Stopgap until we can implement the other correct way below
+        var currentStopCount = $('.waypointAdder').length;
+        var stopIndex = $(this).index('.rmv-btn');
+
+        if (currentStopCount > 2) {
+            $(this).prev().prev().val('');
+        }
+    });
+
     /* $('form').on('click', '.rmv-btn', function () {
          var currentStopCount = $('.waypointAdder').length;
          var stopIndex = $(this).index('.rmv-btn');
