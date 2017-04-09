@@ -11,8 +11,7 @@
 <div id="right-panel">
     <h4>Waypoints List</h4>
     <hr />
-    <form>
-        <!-- action="@@Url.Action("UpdateRoute")" method="post"> -->
+    <form action="@Url.Action("UpdateRoute")" method="post">
         @{
             for (int i = 0; i < Model.Waypoints.Count; i++)
             {
@@ -25,7 +24,8 @@
                 </div>
             }
         }
-        <submit>Update Route</submit>
+        @Html.Hidden("RouteID", Model.RouteID, new { @id = "RouteID" })
+        <button class="editRouteButton">Update Route</button>
     </form>
 </div>
 
@@ -44,7 +44,7 @@
         $(this).parent().after("<div><p id='stopLabel\[" + (stopIndex + 1) + "\]' class='stopLabel'>Stop: " + (stopIndex + 1) + "</p><input id='Waypoints\[" + (stopIndex + 1) + "\]' class='waypointAdder' type='text' name='Waypoints\[" + (stopIndex + 1) + "\]' placeholder='New Waypoint'/><button type='button' id='add-btn\[" + (stopIndex + 1) + "\]' class='add-btn'>Add Stop</button><button type='button' id='rmv-btn\[" + (stopIndex + 1) + "\]' class='rmv-btn'>Remove Stop</button><hr \></div>");
     });
 
-    $('form').on('click', '.rmv-btn', function () { 
+   /* $('form').on('click', '.rmv-btn', function () { 
         var currentStopCount = $('.waypointAdder').length;
         var stopIndex = $(this).index('.rmv-btn');
 
@@ -58,5 +58,5 @@
             }
             $(this).parent().remove();
         }
-    });
+    });*/
 </script>
