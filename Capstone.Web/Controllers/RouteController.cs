@@ -61,9 +61,10 @@ namespace Capstone.Web.Controllers
 
         // POST: Edit; Save new Route
         [HttpPost]
-        public ActionResult UpdateRoute(Route r) // need to somehow get the RouteID from this page's model
+        public ActionResult UpdateRoute(Route r)
         {
-            // Do the DAL stuff
+            routeDal.RemoveRoute(r);
+            routeDal.InsertWaypoints(r);
             return RedirectToAction("Index", "Route");
         }
     }
