@@ -14,6 +14,9 @@ namespace Capstone.Web.DAL
         private const string GetWaypointsQuery = "select waypoint_position from waypoints where route_id = @routeId";
         private const string GetAllRoutesQuery = "select * from routes";
         private const string GetRouteName = "select route_name from routes where route_id = @routeId";
+        private const string RemoveAllWaypointsFromRouteQuery = "DELETE FROM waypoints WHERE route_Id = ";
+       
+
         private string connectionString;
 
         public RouteSqlDAL(string connectionString)
@@ -129,5 +132,69 @@ namespace Capstone.Web.DAL
                 throw;
             }
         }
+
+        public void RemoveRoute(Route r)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    string delete = RemoveAllWaypointsFromRouteQuery + r.RouteID;
+                    connection.Open();
+
+                    SqlCommand command = new SqlCommand(delete, connection);
+
+                    int result = command.ExecuteNonQuery();
+                    
+                }
+            }
+            catch (SqlException e)
+            {
+                throw;
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+        }
+
+        public bool InsertWaypoints(Route r)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+
+                    int rowsAffected = 0;
+                  
+                    foreach (string wayPoint in r.Waypoints)
+                    {
+                        if (wayPoint != null && wayPoint != "")
+                        {
+                            SqlCommand command = new SqlCommand(InsertWayPointsQuery, connection);
+                            command.Parameters.AddWithValue("@wayPoint", wayPoint);
+                            command.Parameters.AddWithValue("@routeId", r.RouteID);
+
+                            rowsAffected += command.ExecuteNonQuery();
+                        }
+                    }
+
+                    return rowsAffected == r.Waypoints.Count();
+                }
+            }
+            catch (SqlException e)
+            {
+                throw;
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
     }
 }
