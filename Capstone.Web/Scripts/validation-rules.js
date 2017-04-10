@@ -1,6 +1,6 @@
 ﻿$(document).ready(function () {
 
-    $("#register-form").validate({
+    $("#login-form, #register-form").validate({
 
         rules: {
 
@@ -9,26 +9,35 @@
             },
             Password: {
                 required: true,
-                minlength: 8
+                minlength: 8,
+                strongpassword: true
             },
             ConfirmedPassword: {
                 equalTo: "#password"
-            },
-            //we don't really need this client-side
-            //Phone: {
-            //    required: true,
-            //    phoneValidation: true,
-            //    phoneUS: true
-            //}
+            }
+          
+            
+
+        },
+        messages: {
 
         },
 
+        errorClass: "error",
+        validClass: "valid"
+
+
     });
-    //$.validator.addMethod("phoneValidation",
-    //    function (value, element) {
-    //        return /^[A-Za-z\d=#$%@_ -]+$/.test(value);
-    //    },
-    //    "Please enter a valid phone number"
-    //);
+   
 });
 
+$.validator.addMethod("strongpassword", function (value, index) {
+    return value.match(/[A-Z]/) && value.match(/[A-z]/) && value.match(/\d/);  //check for one capital letter, one lower case letter, one num
+}, "Please enter a strong password (one capital, one lower case, and one number");
+
+$.validator.addMethod("phoneValidation",
+    function (value, element) {
+        return /^[A-Za-z\d=#$%@_ -]+$/.test(value);
+    },
+    "Please enter a valid phone number"
+);
