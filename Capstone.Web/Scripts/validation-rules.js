@@ -1,6 +1,6 @@
 ﻿$(document).ready(function () {
 
-    $("#login-form, #register-form").validate({
+    $("#register-form").validate({
 
         rules: {
 
@@ -19,9 +19,6 @@
             
 
         },
-        messages: {
-
-        },
 
         errorClass: "error",
         validClass: "valid"
@@ -29,6 +26,31 @@
 
     });
    
+
+    $("#login-form").validate({
+
+        rules: {
+
+            EmailAddress: {
+                required: true
+            },
+            Password: {
+                required: true,
+                minlength: 8,
+                strongpassword: true
+            }            
+
+        },
+        messages: {
+            Password, EmailAddress : false
+
+        },
+
+        errorClass: "error",
+        validClass: "valid"
+
+    });
+
 });
 
 $.validator.addMethod("strongpassword", function (value, index) {
