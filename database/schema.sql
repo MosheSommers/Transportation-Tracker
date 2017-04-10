@@ -3,8 +3,9 @@
 -- *************************************************************************************************
 
 DROP TABLE users;
-DROP TABLE routes;
 DROP TABLE waypoints;
+DROP TABLE routes;
+--DROP TABLE groups;
 
 --DROP TABLE private_group;
 
@@ -25,9 +26,18 @@ CREATE table routes
 (
 	route_id int Identity(1,1),
 	route_name varChar(100) not null,
+	is_Private bit,
 
 	CONSTRAINT PK_routes PRIMARY KEY (route_id)
 );
+
+--CREATE table groups
+--(
+--	group_id int Identity(1,1),
+--	group_name varChar(50) not null,
+
+--	CONSTRAINT PK_groups PRIMARY KEY (group_id)
+--);
 
 CREATE table waypoints
 (
@@ -49,5 +59,5 @@ CREATE table waypoints
 
 SET IDENTITY_INSERT users ON;
 
-
+update users set is_admin = 1 where user_id = 1;
 
