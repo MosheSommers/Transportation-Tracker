@@ -26,6 +26,17 @@
                 </div>
             }
         }
+
+        @*<b>Private Route?</b>
+        <br />*@
+
+        @*So, this is the beginning of the an edit option using radio buttons. Possibly pre-load the button with the 
+        save choice from the data base.  Did not achieve full functionality yet.  But, it works on the Create page*@
+
+        <b>This is a @Model.IsPrivate route?</b>
+        <input id="PrivateGroup" type="radio" name="IsPrivate" value="True">Yes<br />
+        <input id="PublicGroup" type="radio" name="IsPrivate" value="False">No<br /><hr />
+
         @Html.Hidden("RouteID", Model.RouteID, new { @id = "RouteID" })
         <input type="submit" id="submit">
         <!--<button class="editRouteButton">Update Route</button>-->
