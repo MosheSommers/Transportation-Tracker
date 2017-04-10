@@ -27,7 +27,8 @@
             }
         }
         @Html.Hidden("RouteID", Model.RouteID, new { @id = "RouteID" })
-        <button class="editRouteButton">Update Route</button>
+        <input type="submit" id="submit">
+        <!--<button class="editRouteButton">Update Route</button>-->
     </form>
 </div>
 
@@ -39,6 +40,7 @@
         for (var i = currentStopCount - 1; i > stopIndex; i--) {
             $('#stopLabel\\[' + i + '\\]').text('Stop: ' + (i + 2));
             $('#stopLabel\\[' + i + '\\]').attr("id", "stopLabel\[" + (i + 1) + "\]");
+            $('#Waypoints\\[' + i + '\\]').attr("name", "Waypoints\[" + (i + 1) + "\]");
             $('#Waypoints\\[' + i + '\\]').attr("id", "Waypoints\[" + (i + 1) + "\]");
             $('#add-btn\\[' + i + '\\]').attr("id", "add-btn\[" + (i + 1) + "\]");
             $('#rmv-btn\\[' + i + '\\]').attr("id", "rmv-btn\[" + (i + 1) + "\]");
