@@ -35,12 +35,17 @@ namespace Capstone.Web.DAL
                     SqlDataReader reader  = command.ExecuteReader();
                     if (reader.Read())
                     {
-                        returnedUser.EmailAddress = Convert.ToString(reader["email_address"]);
-                        returnedUser.Phone = Convert.ToString(reader["phone_number"]);
+                        returnedUser.EmailAddress = Convert.ToString(reader["email_address"]);                       
                         returnedUser.Password = Convert.ToString(reader["password"]);
                         returnedUser.Salt = Convert.ToString(reader["salt"]);
                         returnedUser.IsAdmin = Convert.ToBoolean(reader["is_admin"]);
                         returnedUser.UserID = Convert.ToInt32(reader["user_id"]);
+
+                        if (reader["phone_number"] != DBNull.Value)
+                        {
+                            returnedUser.Phone = Convert.ToString(reader["phone_number"]);
+                        }
+
                     }
                     return returnedUser;
                 }

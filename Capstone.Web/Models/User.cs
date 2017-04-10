@@ -20,7 +20,15 @@ namespace Capstone.Web.Models
         public string Phone
         {
             get { return phone; }
-            set { phone = CreateNumber(value); }
+
+            set
+            {
+                if (value != null)
+                {
+                    phone = CreateNumber(value);
+                }
+            }
+               
         }
 
         public bool IsAdmin { get; set; }
