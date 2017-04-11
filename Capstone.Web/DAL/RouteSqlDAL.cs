@@ -47,7 +47,7 @@ namespace Capstone.Web.DAL
                     while (reader.Read())
                     {
                         r.AddWaypoint(Convert.ToString(reader["waypoint_position"]));
-                        //r.AddTime(Convert.ToDateTime(reader["stop_time"], ));
+                        r.AddTime(Convert.ToDateTime(reader["stop_time"]));
 
                     }
 
