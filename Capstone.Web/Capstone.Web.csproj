@@ -168,7 +168,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Route\Create.cshtml" />
     <Content Include="Views\Route\Edit.cshtml" />
-    <Content Include="Views\Route\AddUser.cshtml" />
+    <Content Include="Views\Route\EditUsersOnRoute.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

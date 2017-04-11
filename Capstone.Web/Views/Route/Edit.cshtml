@@ -30,7 +30,7 @@
             }
         }
 
-        <b>Edit Route Privacy:</b><br />
+        <h4>Route Privacy</h4>
         <input id="PrivateGroup" type="radio" name="IsPrivate" value="True">Private<br />
         <input id="PublicGroup" type="radio" name="IsPrivate" value="False">Public<br /><hr />
 
@@ -52,7 +52,7 @@
             $('#add-btn\\[' + i + '\\]').attr("id", "add-btn\[" + (i + 1) + "\]");
             $('#rmv-btn\\[' + i + '\\]').attr("id", "rmv-btn\[" + (i + 1) + "\]");
         }
-        $(this).parent().after("<div><p id='stopLabel\[" + (stopIndex + 1) + "\]' class='stopLabel'>Stop: " + (stopIndex + 2) + "</p><input id='Waypoints\[" + (stopIndex + 1) + "\]' class='waypointAdder' type='text' name='Waypoints\[" + (stopIndex + 1) + "\]' placeholder='New Waypoint'/><button type='button' id='add-btn\[" + (stopIndex + 1) + "\]' class='add-btn'>Add Stop</button><button type='button' id='rmv-btn\[" + (stopIndex + 1) + "\]' class='rmv-btn'>Remove Stop</button><hr \></div>");
+        $(this).parent().after("<div><p id='stopLabel\[" + (stopIndex + 1) + "\]' class='stopLabel'>Stop: " + (stopIndex + 2) + "</p><input id='Waypoints\[" + (stopIndex + 1) + "\]' class='waypointAdder' type='text' name='Waypoints\[" + (stopIndex + 1) + "\]' placeholder='New Waypoint'/><input id='Times\[" + (stopIndex + 1) + "\]' class='timeAdder' type='time' name='Times\[" + (stopIndex + 1) + "\]'/><button type='button' id='add-btn\[" + (stopIndex + 1) + "\]' class='add-btn'>Add Stop</button><button type='button' id='rmv-btn\[" + (stopIndex + 1) + "\]' class='rmv-btn'>Remove Stop</button><hr \></div>");
     });
 
     $('form').on('click', '.rmv-btn', function () {

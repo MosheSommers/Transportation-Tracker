@@ -36,8 +36,9 @@
                         var user = (Capstone.Web.Models.User)Session["Login"];
                         if (user != null && user.IsAdmin == true)
                         {
-                           <text>$('#RouteID').after('<button id="editRouteButton">Edit Route</button>');</text>
-                        }
+                        <text>$('#RouteID').after('<input type="submit" id="editUserButton" value="Edit Users" name="editAction" />');</text>
+                        <text>$('#RouteID').after('<input type="submit" id="editRouteButton" value="Edit Route" name="editAction" />');</text>
+                                                    }
                     }
                 }
                 calculateAndDisplayRoute(directionsService, directionsDisplay, result.waypoints, result.times);
@@ -62,7 +63,7 @@
         for (var i = 0; i < JSONTimes.length; i++) {
             var fullDate = new Date(parseInt(JSONTimes[i].substr(6)));
             var hours = fullDate.getHours();
-            var minutes = (fullDate.getMinutes()<10?'0':'') + fullDate.getMinutes()
+            var minutes = (fullDate.getMinutes() < 10 ? '0' : '') + fullDate.getMinutes()
 
             var suffix = hours >= 12 ? " PM" : " AM";
             hours = ((hours + 11) % 12 + 1) + ":" + minutes + suffix;

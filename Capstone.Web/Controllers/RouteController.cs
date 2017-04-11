@@ -56,10 +56,22 @@ namespace Capstone.Web.Controllers
 
         //POST: Edit Waypoints
         [HttpPost]
-        public ActionResult Edit(int routeID)
+        public ActionResult Edit(int routeID, string editAction)
         {
-            Route routeToEdit = routeDal.GetRoute(new Route { RouteID = routeID });
-            return View("Edit", routeToEdit);
+            if (editAction == "Edit Users")
+            {
+                Route routeToEdit = routeDal.GetRoute(new Route { RouteID = routeID });
+                return View("EditUsersOnRoute", routeToEdit);
+            }
+            else if (editAction == "Edit Route")
+            {
+                Route routeToEdit = routeDal.GetRoute(new Route { RouteID = routeID });
+                return View("Edit", routeToEdit);
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
         }
 
         // POST: Edit; Save new Route
