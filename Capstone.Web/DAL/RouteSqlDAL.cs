@@ -15,6 +15,10 @@ namespace Capstone.Web.DAL
         private const string GetAllRoutesQuery = "select * from routes";
         private const string GetRouteName = "select route_name from routes where route_id = @routeId";
         private const string RemoveAllWaypointsFromRouteQuery = "DELETE FROM waypoints WHERE route_Id = ";
+        private const string GetUsersQuery = "SELECT email_address FROM private_route_users WHERE route_id = @routeId";
+        private const string InsertUserQuery = "INSERT INTO private_route_users (route_id, email_address) VALUES (@routeId, @emailAddress)";
+        private const string RemoveAllUsersQuery = "DELETE FROM private_route_users WHERE route_Id = ";
+        private const string GetPrivateRoutesForUser = "SELECT route_id FROM private_route_users WHERE email_address = @emailAddress";
 
         private string connectionString;
 
@@ -43,7 +47,7 @@ namespace Capstone.Web.DAL
                     command.Parameters.AddWithValue("@routeId", r.RouteID);
 
                     reader = command.ExecuteReader();
-                    
+
                     while (reader.Read())
                     {
                         r.AddWaypoint(Convert.ToString(reader["waypoint_position"]));
@@ -136,7 +140,7 @@ namespace Capstone.Web.DAL
             }
         }
 
-        public void RemoveRoute(Route r)
+        public void RemoveWaypointsFromRoute(Route r)
         {
             try
             {
@@ -198,6 +202,79 @@ namespace Capstone.Web.DAL
                 throw;
             }
         }
+
+        public Route GetUsersOnRoute(Route r)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    SqlCommand command = new SqlCommand(GetRouteName, connection);
+                    command.Parameters.AddWithValue("@routeId", r.RouteID);
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        r.RouteName = Convert.ToString(reader["route_name"]);
+                    }
+                    reader.Close();
+
+                    command = new SqlCommand(GetUsersQuery, connection);
+                    command.Parameters.AddWithValue("@routeId", r.RouteID);
+
+                    reader = command.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        r.AddUser(Convert.ToString(reader["email_address"]));
+                    }
+
+                    return r;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public bool InsertUsersToRoute(Route r)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+
+                    int rowsAffected = 0;
+
+                    foreach (string emailAddress in r.Users)
+                    {
+                        if (emailAddress != null && emailAddress != "")
+                        {
+                            SqlCommand command = new SqlCommand(InsertUserQuery, connection);
+                            command.Parameters.AddWithValue("@routeId", r.RouteID);
+                            command.Parameters.AddWithValue("@emailAddress", emailAddress);
+
+                            rowsAffected += command.ExecuteNonQuery();
+                        }
+                    }
+
+                    return rowsAffected == r.Users.Count();
+                }
+            }
+            catch (SqlException e)
+            {
+                throw e;
+
+            }
+            catch (Exception a)
+            {
+                throw a;
+            }
+        }
+
+
 
     }
 }

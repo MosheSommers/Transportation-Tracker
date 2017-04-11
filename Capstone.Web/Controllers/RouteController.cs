@@ -54,7 +54,7 @@ namespace Capstone.Web.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
-        //POST: Edit
+        //POST: Edit Waypoints
         [HttpPost]
         public ActionResult Edit(int routeID)
         {
@@ -66,9 +66,24 @@ namespace Capstone.Web.Controllers
         [HttpPost]
         public ActionResult UpdateRoute(Route r)
         {
-            routeDal.RemoveRoute(r);
+            routeDal.RemoveWaypointsFromRoute(r);
             routeDal.InsertWaypoints(r);
             return RedirectToAction("Index", "Route");
+        }
+
+        //POST: Edit Users on Route
+        [HttpPost]
+        public ActionResult EditUsersOnRoute(int routeID)
+        {
+            Route routeToEdit = routeDal.GetUsersRoute(new Route { RouteID = routeID });
+            return View("EditUsersOnRoute", routeToEdit);
+        }
+
+        //POST: Edit, Save users on Route
+        [HttpPost]
+        public ActionResult UpdateUsersOnRoute(Route r)
+        {
+            return null;
         }
     }
 }
