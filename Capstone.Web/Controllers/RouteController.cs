@@ -83,7 +83,9 @@ namespace Capstone.Web.Controllers
         [HttpPost]
         public ActionResult UpdateUsersOnRoute(Route r)
         {
-            return null;
+            routeDal.RemoveUsersFromRoute(r);
+            routeDal.InsertUsersToRoute(r);
+            return RedirectToAction("Index", "Route"); //DOES NOT DO WHAT WE WANT IT TO DO TEMPORARY PUSH FIX
         }
     }
 }
