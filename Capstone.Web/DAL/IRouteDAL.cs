@@ -19,6 +19,8 @@ namespace Capstone.Web.DAL
 
         bool InsertWaypoints(Route r);
 
-        Route GetUsersRoute(Route r);
+        Route GetUsersOnRoute(Route r);
+
+        bool InsertUsersToRoute(Route r);
     }
 }
