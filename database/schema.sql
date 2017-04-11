@@ -2,11 +2,11 @@
 -- This script creates all of the database objects (tables, constraints, etc) for the database
 -- *************************************************************************************************
 
-DROP TABLE groups;
+DROP TABLE private_route_users;
 DROP TABLE users;
 DROP TABLE waypoints;
 DROP TABLE routes;
-DROP TABLE users_in_groups
+
 
 
 
@@ -20,7 +20,7 @@ CREATE table users
 	phone_number varChar(10),
 	is_admin bit,
 
-	CONSTRAINT PK_users PRIMARY KEY (user_id)
+	CONSTRAINT PK_users PRIMARY KEY (email_address)
 );
 
 CREATE table routes
@@ -32,34 +32,25 @@ CREATE table routes
 	CONSTRAINT PK_routes PRIMARY KEY (route_id)
 );
 
-CREATE table groups
-(
-	group_id int Identity(1,1),
-	group_name varChar(50) not null,
-
-	CONSTRAINT PK_groups PRIMARY KEY (group_id)
-);
 
 CREATE table waypoints
 (
 	waypoint_id int Identity(1,1),
 	waypoint_position varChar(200),
-	stop_time Time,
+	stop_time DateTime,
 
 	route_id int FOREIGN KEY REFERENCES routes(route_id),
 
 	CONSTRAINT PK_waypoint_id PRIMARY KEY (waypoint_id)	
 );
 
-CREATE table users_groups
+CREATE table private_route_users
 (
-	user_id int FOREIGN KEY REFERENCES users(user_id),
-	group_id int FOREIGN KEY REFERENCES groups(group_id),
-
-	CONSTRAINT PK_users_groups PRIMARY KEY (user_id, group_id)
+	email_address varChar(150) FOREIGN KEY REFERENCES users(email_address) not null,
+	route_id int FOREIGN KEY REFERENCES routes(route_id) not null
 );
 
-SET IDENTITY_INSERT users ON;
+--SET IDENTITY_INSERT users ON;
 
 update users set is_admin = 1 where user_id = 1;
 
