@@ -9,7 +9,7 @@ namespace Capstone.Web.Models
 {
     public class User
     {
-        public int UserID { get; set; }
+        //public int UserID { get; set; }
 
         [Required]
         public string EmailAddress { get; set; }

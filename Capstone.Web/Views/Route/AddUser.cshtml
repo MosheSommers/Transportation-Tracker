@@ -14,7 +14,7 @@
         {
             <div>
                 @*<p id="userLabel[@i]" class="stopLabel">Stop: @stopNumber</p>*@
-                <input id="Waypoints[@i]" class="waypointAdder" type="text" name="User[@i]" value="@Model.Users [i]" />
+                <input id="Waypoints[@i]" class="waypointAdder" type="text" name="User[@i]" value="@Model.Users[i]" />
                 <button type="button" id="add-btn[@i]" class="add-btn">Add User</button>
                 <button type="button" id="rmv-btn[@i]" class="rmv-btn">Remove User</button>
                 <hr />
@@ -49,7 +49,7 @@
              for (var i = stopIndex + 1; i < currentStopCount; i++) {
                  //$('#stopLabel\\[' + i + '\\]').text('Stop: ' + (i - 1));
                  //$('#stopLabel\\[' + i + '\\]').attr("id", "stopLabel\[" + (i - 1) + "\]");
-                 $('#Waypoints\\[' + i + '\\]').attr("name", "Waypoints\[" + (i - 1) + "\]");
+                 $('#Waypoints\\[' + i + '\\]').attr("name", "User\[" + (i - 1) + "\]");
                  $('#Waypoints\\[' + i + '\\]').attr("id", "Waypoints\[" + (i - 1) + "\]");
                  $('#add-btn\\[' + i + '\\]').attr("id", "add-btn\[" + (i - 1) + "\]");
                  $('#rmv-btn\\[' + i + '\\]').attr("id", "rmv-btn\[" + (i - 1) + "\]");

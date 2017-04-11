@@ -39,7 +39,7 @@ namespace Capstone.Web.DAL
                         returnedUser.Password = Convert.ToString(reader["password"]);
                         returnedUser.Salt = Convert.ToString(reader["salt"]);
                         returnedUser.IsAdmin = Convert.ToBoolean(reader["is_admin"]);
-                        returnedUser.UserID = Convert.ToInt32(reader["user_id"]);
+                        //returnedUser.UserID = Convert.ToInt32(reader["user_id"]);
 
                         if (reader["phone_number"] != DBNull.Value)
                         {
