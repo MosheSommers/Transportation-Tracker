@@ -48,7 +48,10 @@ namespace Capstone.Web.Controllers
         public JsonResult WaypointList(int routeID)
         {
             List<string> waypoints = routeDal.GetRoute(new Models.Route { RouteID = routeID }).Waypoints;
-            return Json(waypoints, JsonRequestBehavior.AllowGet);
+            List<DateTime> times = routeDal.GetRoute(new Models.Route { RouteID = routeID }).Times;
+
+            var result = new { waypoints = waypoints, times = times };
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         //POST: Edit

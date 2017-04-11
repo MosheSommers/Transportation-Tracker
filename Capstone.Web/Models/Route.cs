@@ -22,7 +22,7 @@ namespace Capstone.Web.Models
         public bool IsPrivate { get; set; }
 
         public List<string> Waypoints { get; set; } = new List<string>();
-        public List<string> Times { get; set; } = new List<string>();
+        public List<DateTime> Times { get; set; } = new List<DateTime>();
         public List<string> Users { get; set; } = new List<string>();
 
         public void AddWaypoint(string newWaypoint)
@@ -30,7 +30,7 @@ namespace Capstone.Web.Models
             this.Waypoints.Add(newWaypoint);
         }
 
-        public void AddTime(string newTime)
+        public void AddTime(DateTime newTime)
         {
             this.Times.Add(newTime);
         }

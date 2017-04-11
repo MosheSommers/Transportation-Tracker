@@ -30,7 +30,7 @@
                     routeId: $(this).val()
                 },
                 method: "GET"
-            }).done(function (waypoints) {
+            }).done(function (result) {
                 if ($('#editRouteButton').length == 0) {
                     @{
                         var user = (Capstone.Web.Models.User)Session["Login"];
@@ -40,7 +40,7 @@
                         }
                     }
                 }
-                calculateAndDisplayRoute(directionsService, directionsDisplay, waypoints);
+                calculateAndDisplayRoute(directionsService, directionsDisplay, result.waypoints, result.times);
             });
         });
     });
@@ -55,11 +55,25 @@
         directionsDisplay.setMap(map);
     }
 
-    function calculateAndDisplayRoute(directionsService, directionsDisplay, JSONWaypoints) {
+    function calculateAndDisplayRoute(directionsService, directionsDisplay, JSONWaypoints, JSONTimes) {
+        //// Begin Experimental Section
+        //var timesList = [];
+
+        //$.ajax({
+        //    url: "route/timelist",
+        //    data: {
+        //        routeId: $('#RouteID').val()
+        //    },
+        //    method: "GET"
+        //}).done(function (times) {
+        //    var timesList = times;
+        //});
+        //// End Experimental Section
 
         var startPoint = JSONWaypoints[0];
         var endPoint = JSONWaypoints[JSONWaypoints.length - 1];
         var waypts = [];
+
 
         for (var i = 1; i < JSONWaypoints.length - 1; i++) {
             waypts.push({
@@ -81,12 +95,14 @@
                 var summaryPanel = document.getElementById('directions-panel');
                 summaryPanel.innerHTML = '';
 
+                var timeIndex = 0; // Index ID for the times list when we pass it in
+
                 for (var i = 0; i < route.legs.length; i++) {
                     var routeSegment = i + 1;
-                    summaryPanel.innerHTML += '<b>Stop: ' + routeSegment + '</b><br>';
+                    summaryPanel.innerHTML += '<b>Stop: ' + routeSegment + ', Time: ' + '</b><br>';
                     summaryPanel.innerHTML += route.legs[i].start_address + '<br>';
                     if (i == route.legs.length - 1) {
-                        summaryPanel.innerHTML += '<b>Stop: ' + (routeSegment + 1) + '</b><br>';
+                        summaryPanel.innerHTML += '<b>Stop: ' + (routeSegment + 1) + ', Time: ' + '</b><br>';
                         summaryPanel.innerHTML += route.legs[i].end_address;
                     }
                 }
