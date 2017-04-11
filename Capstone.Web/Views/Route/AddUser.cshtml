@@ -1,0 +1,62 @@
+﻿@model Capstone.Web.Models.Route
+
+@{
+    ViewBag.Title = "Add a User to a Route";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2> Add a user to Route: @Model.RouteName </h2>
+<hr />
+<div id="right-panel">
+<form action="@Url.Action("AddUserToRoute")" method ="post">
+    @{
+        for (int i = 0; i < Model.Users.Count; i++)
+        {
+            <div>
+                @*<p id="userLabel[@i]" class="stopLabel">Stop: @stopNumber</p>*@
+                <input id="Waypoints[@i]" class="waypointAdder" type="text" name="User[@i]" value="@Model.Users [i]" />
+                <button type="button" id="add-btn[@i]" class="add-btn">Add User</button>
+                <button type="button" id="rmv-btn[@i]" class="rmv-btn">Remove User</button>
+                <hr />
+            </div>
+        }
+    }
+
+</form>
+</div>
+
+<script>
+    $('form').on('click', '.add-btn', function () {
+        var currentStopCount = $('.waypointAdder').length;
+        var stopIndex = $(this).index('.add-btn');
+
+        for (var i = currentStopCount - 1; i > stopIndex; i--) {
+            //$('#stopLabel\\[' + i + '\\]').text('Stop: ' + (i + 2));
+            //$('#stopLabel\\[' + i + '\\]').attr("id", "stopLabel\[" + (i + 1) + "\]");
+            $('#Waypoints\\[' + i + '\\]').attr("name", "User\[" + (i + 1) + "\]");
+            $('#Waypoints\\[' + i + '\\]').attr("id", "Waypoints\[" + (i + 1) + "\]");
+            $('#add-btn\\[' + i + '\\]').attr("id", "add-btn\[" + (i + 1) + "\]");
+            $('#rmv-btn\\[' + i + '\\]').attr("id", "rmv-btn\[" + (i + 1) + "\]");
+        }
+        $(this).parent().after("<div><input id='Waypoints\[" + (stopIndex + 1) + "\]' class='waypointAdder' type='text' name='User\[" + (stopIndex + 1) + "\]' placeholder='New User'/><button type='button' id='add-btn\[" + (stopIndex + 1) + "\]' class='add-btn'>Add User</button><button type='button' id='rmv-btn\[" + (stopIndex + 1) + "\]' class='rmv-btn'>Remove User</button><hr \></div>");
+    });
+
+    $('form').on('click', '.rmv-btn', function () {
+         var currentStopCount = $('.waypointAdder').length;
+         var stopIndex = $(this).index('.rmv-btn');
+
+         if (currentStopCount > 2) {
+             for (var i = stopIndex + 1; i < currentStopCount; i++) {
+                 //$('#stopLabel\\[' + i + '\\]').text('Stop: ' + (i - 1));
+                 //$('#stopLabel\\[' + i + '\\]').attr("id", "stopLabel\[" + (i - 1) + "\]");
+                 $('#Waypoints\\[' + i + '\\]').attr("name", "Waypoints\[" + (i - 1) + "\]");
+                 $('#Waypoints\\[' + i + '\\]').attr("id", "Waypoints\[" + (i - 1) + "\]");
+                 $('#add-btn\\[' + i + '\\]').attr("id", "add-btn\[" + (i - 1) + "\]");
+                 $('#rmv-btn\\[' + i + '\\]').attr("id", "rmv-btn\[" + (i - 1) + "\]");
+             }
+             $(this).parent().remove();
+         }
+     });
+</script>
+
+
