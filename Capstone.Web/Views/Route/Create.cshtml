@@ -11,16 +11,18 @@
     <div>
         <form action="@Url.Action("Create")" method="post">
             <b>Route Name</b><br />
-            <input id="RouteName" type="text" name="RouteName" placeholder="Route Name"/><br /><hr />
+            <input id="RouteName" type="text" name="RouteName" placeholder=" Route Name"/><br /><hr />
             <b>List of Stops:</b><br />
             <input id="Waypoints[0]" class="waypointAdder" type="text" name="Waypoints[0]" placeholder=" Stop 1" />
+            <input id="Times[0]" class="timeAdder" type="text" name="Times[0]" placeholder=" Time 1"/><br />
             <input id="Waypoints[1]" class="waypointAdder" type="text" name="Waypoints[1]" placeholder=" Stop 2"/>
+            <input id="Times[1]" class="timeAdder" type="text" name="Times[1]" placeholder=" Time 2" /><br />
             <button type="button" id="add-btn">Add Stop</button>
             <button type="button" id="rmv-btn">Remove Stop</button><br /><hr />
                 <b>Private Route?</b>
                 <br />
                 <input id="PrivateGroup" type="radio" name="IsPrivate" value="True">Yes<br />
-                <input id="PublicGroup" type="radio" name="IsPrivate" value="False">No<br /><hr />
+                <input id="PublicGroup" type="radio" name="IsPrivate" value="False" checked="checked">No<br /><hr />
                 <input type="submit" id="submit">
             </form>
     </div>
@@ -29,12 +31,14 @@
 <script>
     $('#add-btn').on('click', function () {
         var currentStopCount = $('.waypointAdder').length;
-        $('.waypointAdder:last').after('<input type="text" class="waypointAdder" id="Waypoints[' + currentStopCount + ']" name="Waypoints[' + currentStopCount + ']" placeholder=" Stop ' + (currentStopCount+1) + '"/>');
+        $('.timeAdder:last').after('<br class="brAdder" /><input type="text" class="waypointAdder" id="Waypoints[' + currentStopCount + ']" name="Waypoints[' + currentStopCount + ']" placeholder=" Stop ' + (currentStopCount + 1) + '"/><input type="text" class="timeAdder" id="Times[' + currentStopCount + ']" name="Times[' + currentStopCount + ']" placeholder=" Time ' + (currentStopCount+1) + '"/>');
     });
     $('#rmv-btn').on('click', function () {
         var currentStopCount = $('.waypointAdder').length;
         if (currentStopCount > 2) {
             $('.waypointAdder:last').remove();
+            $('.timeAdder:last').remove();
+            $('.brAdder:last').remove();
         }
     });
     function initMap() {
