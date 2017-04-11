@@ -11,11 +11,10 @@ namespace Capstone.Web.DAL
     {
         private const string InsertWayPointsQuery = "insert into waypoints (waypoint_position, stop_time, route_id) values(@wayPoint, @stopTime, @routeId)";
         private const string InsertRouteQuery = "insert into routes values(@routeName, @isPrivate);SELECT CAST(scope_identity() AS int)";
-        private const string GetWaypointsQuery = "select waypoint_position from waypoints where route_id = @routeId";
+        private const string GetWaypointsQuery = "select waypoint_position, stop_time from waypoints where route_id = @routeId";
         private const string GetAllRoutesQuery = "select * from routes";
         private const string GetRouteName = "select route_name from routes where route_id = @routeId";
         private const string RemoveAllWaypointsFromRouteQuery = "DELETE FROM waypoints WHERE route_Id = ";
-
 
         private string connectionString;
 
@@ -23,6 +22,7 @@ namespace Capstone.Web.DAL
         {
             this.connectionString = connectionString;
         }
+
         public Route GetRoute(Route r)
         {
             try
@@ -43,19 +43,20 @@ namespace Capstone.Web.DAL
                     command.Parameters.AddWithValue("@routeId", r.RouteID);
 
                     reader = command.ExecuteReader();
-
+                    
                     while (reader.Read())
                     {
                         r.AddWaypoint(Convert.ToString(reader["waypoint_position"]));
+                        //r.AddTime(Convert.ToDateTime(reader["stop_time"], ));
+
                     }
 
                     return r;
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                throw ex;
             }
         }
 
@@ -87,20 +88,6 @@ namespace Capstone.Web.DAL
                             rowsAffected += command.ExecuteNonQuery();
                         }
                     }
-                    //foreach (string wayPoint in r.Waypoints)
-                    //{
-                    //    if (wayPoint != null && wayPoint != "")
-                    //    {
-                            
-                    //        var stopTime = r.Times[] 
-
-                    //        command = new SqlCommand(InsertWayPointsQuery, connection);
-                    //        command.Parameters.AddWithValue("@wayPoint", wayPoint);
-                    //        command.Parameters.AddWithValue("@routeId", id);
-                    //        command.Parameters.AddWithValue("@stopTime", stopTime);
-                    //        rowsAffected += command.ExecuteNonQuery();
-                    //    }
-                    //}
                     return rowsAffected == r.Waypoints.Count();
                 }
             }
