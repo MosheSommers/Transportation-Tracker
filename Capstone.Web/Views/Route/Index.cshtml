@@ -58,12 +58,22 @@
     function calculateAndDisplayRoute(directionsService, directionsDisplay, JSONWaypoints, JSONTimes) {
 
         var Times = [];
-        Times = JSONTimes;
+
+        for (var i = 0; i < JSONTimes.length; i++) {
+            var fullDate = new Date(parseInt(JSONTimes[i].substr(6)));
+            var hours = fullDate.getHours();
+            var minutes = (fullDate.getMinutes()<10?'0':'') + fullDate.getMinutes()
+
+            var suffix = hours >= 12 ? " PM" : " AM";
+            hours = ((hours + 11) % 12 + 1) + ":" + minutes + suffix;
+
+            Times[i] = hours;
+        }
 
         var startPoint = JSONWaypoints[0];
         var endPoint = JSONWaypoints[JSONWaypoints.length - 1];
         var waypts = [];
-        
+
         for (var i = 1; i < JSONWaypoints.length - 1; i++) {
             waypts.push({
                 location: JSONWaypoints[i],
@@ -88,10 +98,10 @@
 
                 for (var i = 0; i < route.legs.length; i++) {
                     var routeSegment = i + 1;
-                    summaryPanel.innerHTML += '<b>Stop: ' + routeSegment + ', Time: ' +'</b><br>';
+                    summaryPanel.innerHTML += '<b>Stop: ' + routeSegment + ' - ' + Times[timeIndex++] + '</b><br>';
                     summaryPanel.innerHTML += route.legs[i].start_address + '<br>';
                     if (i == route.legs.length - 1) {
-                        summaryPanel.innerHTML += '<b>Stop: ' + (routeSegment + 1) + ', Time: ' + '</b><br>';
+                        summaryPanel.innerHTML += '<b>Stop: ' + (routeSegment + 1) + ' - ' + Times[timeIndex++] + '</b><br>';
                         summaryPanel.innerHTML += route.legs[i].end_address;
                     }
                 }
