@@ -75,7 +75,7 @@ namespace Capstone.Web.Controllers
         [HttpPost]
         public ActionResult EditUsersOnRoute(int routeID)
         {
-            Route routeToEdit = routeDal.GetUsersRoute(new Route { RouteID = routeID });
+            Route routeToEdit = routeDal.GetUsersOnRoute(new Route { RouteID = routeID });
             return View("EditUsersOnRoute", routeToEdit);
         }
 
