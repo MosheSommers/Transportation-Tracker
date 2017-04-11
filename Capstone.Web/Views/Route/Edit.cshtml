@@ -15,11 +15,14 @@
         @{
             for (int i = 0; i < Model.Waypoints.Count; i++)
             {
+
                 int stopNumber = i + 1;
 
                 <div>
                     <p id="stopLabel[@i]" class="stopLabel">Stop: @stopNumber</p>
                     <input id="Waypoints[@i]" class="waypointAdder" type="text" name="Waypoints[@i]" value="@Model.Waypoints[i]" />
+                    <input id="Times[@i]" class="timeAdder" type="time" name="Times[@i]" value="@Model.Times[i].TimeOfDay.ToString()" />
+
                     <button type="button" id="add-btn[@i]" class="add-btn">Add Stop</button>
                     <button type="button" id="rmv-btn[@i]" class="rmv-btn">Remove Stop</button>
                     <hr />
@@ -27,19 +30,12 @@
             }
         }
 
-        @*<b>Private Route?</b>
-        <br />*@
-
-        @*So, this is the beginning of the an edit option using radio buttons. Possibly pre-load the button with the 
-        save choice from the data base.  Did not achieve full functionality yet.  But, it works on the Create page*@
-
-        <b>This is a @Model.IsPrivate route?</b>
-        <input id="PrivateGroup" type="radio" name="IsPrivate" value="True">Yes<br />
-        <input id="PublicGroup" type="radio" name="IsPrivate" value="False">No<br /><hr />
+        <b>Edit Route Privacy:</b><br />
+        <input id="PrivateGroup" type="radio" name="IsPrivate" value="True">Private<br />
+        <input id="PublicGroup" type="radio" name="IsPrivate" value="False">Public<br /><hr />
 
         @Html.Hidden("RouteID", Model.RouteID, new { @id = "RouteID" })
         <input type="submit" id="submit">
-        <!--<button class="editRouteButton">Update Route</button>-->
     </form>
 </div>
 
@@ -58,15 +54,6 @@
         }
         $(this).parent().after("<div><p id='stopLabel\[" + (stopIndex + 1) + "\]' class='stopLabel'>Stop: " + (stopIndex + 2) + "</p><input id='Waypoints\[" + (stopIndex + 1) + "\]' class='waypointAdder' type='text' name='Waypoints\[" + (stopIndex + 1) + "\]' placeholder='New Waypoint'/><button type='button' id='add-btn\[" + (stopIndex + 1) + "\]' class='add-btn'>Add Stop</button><button type='button' id='rmv-btn\[" + (stopIndex + 1) + "\]' class='rmv-btn'>Remove Stop</button><hr \></div>");
     });
-
-    /*$('form').on('click', '.rmv-btn', function () { 
-        var currentStopCount = $('.waypointAdder').length;
-        var stopIndex = $(this).index('.rmv-btn');
-
-        if (currentStopCount > 2) {
-            $(this).prev().prev().val('');
-        }
-    });*/
 
     $('form').on('click', '.rmv-btn', function () {
          var currentStopCount = $('.waypointAdder').length;
