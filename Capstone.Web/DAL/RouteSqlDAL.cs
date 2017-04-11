@@ -274,6 +274,32 @@ namespace Capstone.Web.DAL
             }
         }
 
+        public void RemoveUsersFromRoute(Route r)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    string delete = RemoveAllUsersQuery + r.RouteID;
+                    connection.Open();
+
+                    SqlCommand command = new SqlCommand(delete, connection);
+
+                    int result = command.ExecuteNonQuery();
+
+                }
+            }
+            catch (SqlException e)
+            {
+                throw;
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+        }
 
 
     }
