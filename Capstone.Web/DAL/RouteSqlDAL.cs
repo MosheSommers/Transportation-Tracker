@@ -9,13 +9,13 @@ namespace Capstone.Web.DAL
 {
     public class RouteSqlDAL : IRouteDAL
     {
-        private const string InsertWayPointsQuery = "insert into waypoints (waypoint_position, route_id) values(@wayPoint, @routeId)";
+        private const string InsertWayPointsQuery = "insert into waypoints (waypoint_position, stop_time, route_id) values(@wayPoint, @stopTime, @routeId)";
         private const string InsertRouteQuery = "insert into routes values(@routeName, @isPrivate);SELECT CAST(scope_identity() AS int)";
         private const string GetWaypointsQuery = "select waypoint_position from waypoints where route_id = @routeId";
         private const string GetAllRoutesQuery = "select * from routes";
         private const string GetRouteName = "select route_name from routes where route_id = @routeId";
         private const string RemoveAllWaypointsFromRouteQuery = "DELETE FROM waypoints WHERE route_Id = ";
-       
+
 
         private string connectionString;
 
@@ -41,7 +41,7 @@ namespace Capstone.Web.DAL
 
                     command = new SqlCommand(GetWaypointsQuery, connection);
                     command.Parameters.AddWithValue("@routeId", r.RouteID);
-                   
+
                     reader = command.ExecuteReader();
 
                     while (reader.Read())
@@ -63,7 +63,7 @@ namespace Capstone.Web.DAL
         {
             try
             {
-                using(SqlConnection connection = new SqlConnection(connectionString))
+                using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
 
@@ -74,18 +74,33 @@ namespace Capstone.Web.DAL
 
                     int rowsAffected = 0;
 
-                    foreach (string wayPoint in r.Waypoints)
+                    for (int i = 0; i < r.Waypoints.Count; i++)
                     {
-                        if (wayPoint != null && wayPoint != "")
+                        if (r.Waypoints[i] != null && r.Waypoints[i] != "")
                         {
-                        command = new SqlCommand(InsertWayPointsQuery, connection);
-                        command.Parameters.AddWithValue("@wayPoint", wayPoint);
-                        command.Parameters.AddWithValue("@routeId", id);
+                            var stopTime = r.Times[i];
 
-                        rowsAffected += command.ExecuteNonQuery();
+                            command = new SqlCommand(InsertWayPointsQuery, connection);
+                            command.Parameters.AddWithValue("@wayPoint", r.Waypoints[i]);
+                            command.Parameters.AddWithValue("@routeId", id);
+                            command.Parameters.AddWithValue("@stopTime", stopTime);
+                            rowsAffected += command.ExecuteNonQuery();
                         }
                     }
+                    //foreach (string wayPoint in r.Waypoints)
+                    //{
+                    //    if (wayPoint != null && wayPoint != "")
+                    //    {
+                            
+                    //        var stopTime = r.Times[] 
 
+                    //        command = new SqlCommand(InsertWayPointsQuery, connection);
+                    //        command.Parameters.AddWithValue("@wayPoint", wayPoint);
+                    //        command.Parameters.AddWithValue("@routeId", id);
+                    //        command.Parameters.AddWithValue("@stopTime", stopTime);
+                    //        rowsAffected += command.ExecuteNonQuery();
+                    //    }
+                    //}
                     return rowsAffected == r.Waypoints.Count();
                 }
             }
@@ -105,13 +120,13 @@ namespace Capstone.Web.DAL
             try
             {
                 List<Route> routes = new List<Route>();
-                using(SqlConnection connection = new SqlConnection(connectionString))
+                using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
                     SqlCommand command = new SqlCommand(GetAllRoutesQuery, connection);
 
                     SqlDataReader reader = command.ExecuteReader();
-                    
+
                     while (reader.Read())
                     {
                         Route r = new Route();
@@ -146,7 +161,7 @@ namespace Capstone.Web.DAL
                     SqlCommand command = new SqlCommand(delete, connection);
 
                     int result = command.ExecuteNonQuery();
-                    
+
                 }
             }
             catch (SqlException e)
@@ -170,7 +185,7 @@ namespace Capstone.Web.DAL
                     connection.Open();
 
                     int rowsAffected = 0;
-                  
+
                     foreach (string wayPoint in r.Waypoints)
                     {
                         if (wayPoint != null && wayPoint != "")

@@ -56,19 +56,6 @@
     }
 
     function calculateAndDisplayRoute(directionsService, directionsDisplay, JSONWaypoints, JSONTimes) {
-        //// Begin Experimental Section
-        //var timesList = [];
-
-        //$.ajax({
-        //    url: "route/timelist",
-        //    data: {
-        //        routeId: $('#RouteID').val()
-        //    },
-        //    method: "GET"
-        //}).done(function (times) {
-        //    var timesList = times;
-        //});
-        //// End Experimental Section
 
         var startPoint = JSONWaypoints[0];
         var endPoint = JSONWaypoints[JSONWaypoints.length - 1];
