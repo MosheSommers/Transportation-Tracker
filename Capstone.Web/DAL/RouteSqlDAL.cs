@@ -159,25 +159,23 @@ namespace Capstone.Web.DAL
         {
             try
             {
-                List<Route> routes = new List<Route>();
+                List<Route> authorizedRoutes = new List<Route>();
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
-                    SqlCommand command = new SqlCommand(GetAllRoutesQuery, connection);
+                    SqlCommand command = new SqlCommand(GetPrivateRoutesForUser, connection);
 
                     SqlDataReader reader = command.ExecuteReader();
 
                     while (reader.Read())
                     {
                         Route r = new Route();
-                        r.RouteName = Convert.ToString(reader["route_name"]);
                         r.RouteID = Convert.ToInt32(reader["route_id"]);
-                        r.IsPrivate = Convert.ToBoolean(reader["is_Private"]);
 
-                        routes.Add(r);
+                        authorizedRoutes.Add(r);
                     }
 
-                    return routes;
+                    return authorizedRoutes;
                 }
             }
             catch (SqlException e)
