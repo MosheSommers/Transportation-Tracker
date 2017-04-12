@@ -42,10 +42,9 @@
                         {
                         <text>$('#RouteID').after('<input type="submit" id="editUserButton" class="editButton" value="Edit Users" name="editAction" />');</text>
                         <text>$('#RouteID').after('<input type="submit" id="editRouteButton" class="editButton" value="Edit Route" name="editAction" />');</text>
-                                                    }
+                        }
                     }
                 }
-
                 calculateAndDisplayRoute(directionsService, directionsDisplay, result.waypoints, result.times);
             });
         });
@@ -59,10 +58,23 @@
             center: { lat: 41.4993, lng: -81.6944 }
         });
         directionsDisplay.setMap(map);
+    
+        showBusIconOnMap(41.090682, -85.154379, map); // THIS IS WHERE WE WILL SET THE LONG/LAT FROM JOSH'S API
+    }
+
+    function showBusIconOnMap(longitude, latitude, map) {
+        var latlng = new google.maps.LatLng(longitude, latitude);
+
+        var marker = new google.maps.Marker({
+            position: latlng,
+            map: map,
+            title: 'Bus Location',
+            icon: 'http://maps.google.com/mapfiles/ms/icons/bus.png'
+        });
     }
 
     function calculateAndDisplayRoute(directionsService, directionsDisplay, JSONWaypoints, JSONTimes) {
-
+        
         var Times = [];
 
         for (var i = 0; i < JSONTimes.length; i++) {
@@ -72,7 +84,6 @@
 
             var suffix = hours >= 12 ? " PM" : " AM";
             hours = ((hours + 11) % 12 + 1) + ":" + minutes + suffix;
-
             Times[i] = hours;
         }
 
