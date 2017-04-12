@@ -13,7 +13,7 @@ namespace Capstone.Web.Tests.DAL
 {
     [TestClass]
     public class UserSqlDALTests
-    {
+    {/*
         TransactionScope tran;
         UserSqlDAL userDal;
 
@@ -56,6 +56,6 @@ namespace Capstone.Web.Tests.DAL
             User u = new User() { EmailAddress = "moshe@tester.com", IsAdmin = true, Password = "testpass", Phone = "1234567890" , Salt = "12344"};
 
             Assert.IsTrue(userDal.InsertNewUser(u));
-        }
+        }*/
     }
 }
