@@ -94,10 +94,9 @@ namespace Capstone.Web.Controllers
 
         //POST: Edit, Save users on Route
         [HttpPost]
-        public ActionResult UpdateUsersOnRoute(Route r)
+        public ActionResult UpdateUsersOnRoute(string User, int RouteID)
         {
-            routeDal.RemoveUsersFromRoute(r);
-            routeDal.InsertUsersToRoute(r);
+            routeDal.InsertUserToRoute(User, RouteID);
             return RedirectToAction("Index", "Route"); //DOES NOT DO WHAT WE WANT IT TO DO TEMPORARY PUSH FIX
         }
     }

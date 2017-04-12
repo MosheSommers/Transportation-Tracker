@@ -19,7 +19,7 @@ namespace Capstone.Web.DAL
         bool InsertWaypoints(Route r);
 
         Route GetUsersOnRoute(Route r);
-        bool InsertUsersToRoute(Route r);
+        bool InsertUserToRoute(string User, int RouteID);
         void RemoveUsersFromRoute(Route r);
     }
 }

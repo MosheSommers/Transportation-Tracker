@@ -255,7 +255,7 @@ namespace Capstone.Web.DAL
             }
         }
 
-        public bool InsertUsersToRoute(Route r)
+        public bool InsertUserToRoute(string User, int RouteID)
         {
             try
             {
@@ -265,19 +265,17 @@ namespace Capstone.Web.DAL
 
                     int rowsAffected = 0;
 
-                    foreach (string emailAddress in r.Users)
-                    {
-                        if (emailAddress != null && emailAddress != "")
+                        if (User != null && User != "")
                         {
                             SqlCommand command = new SqlCommand(InsertUserQuery, connection);
-                            command.Parameters.AddWithValue("@routeId", r.RouteID);
-                            command.Parameters.AddWithValue("@emailAddress", emailAddress);
+                            command.Parameters.AddWithValue("@routeId", RouteID);
+                            command.Parameters.AddWithValue("@emailAddress", User);
 
                             rowsAffected += command.ExecuteNonQuery();
                         }
-                    }
+                    
 
-                    return rowsAffected == r.Users.Count();
+                    return rowsAffected == 1;
                 }
             }
             catch (SqlException e)
