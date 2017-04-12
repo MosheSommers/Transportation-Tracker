@@ -78,11 +78,8 @@
         var Times = [];
 
         for (var i = 0; i < JSONTimes.length; i++) {
-            var oldDate = new Date(parseInt(JSONTimes[i].substr(6)));
-            var offSet = new Date().getTimezoneOffset();
-            var fullDate = new Date(oldDate.getTime() + (60000 * (oldDate.getTimezoneOffset() - offSet)));
+            var fullDate = new Date(parseInt(JSONTimes[i].substr(6)));
 
-            alert(fullDate);
             var hours = fullDate.getHours();
             var minutes = (fullDate.getMinutes() < 10 ? '0' : '') + fullDate.getMinutes()
 
