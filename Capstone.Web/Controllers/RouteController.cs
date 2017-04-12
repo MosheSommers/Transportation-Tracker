@@ -92,12 +92,21 @@ namespace Capstone.Web.Controllers
             return View("EditUsersOnRoute", routeToEdit);
         }
 
-        //POST: Edit, Save users on Route
+        //POST: Add user to Route
         [HttpPost]
         public ActionResult UpdateUsersOnRoute(string User, int RouteID)
         {
             routeDal.InsertUserToRoute(User, RouteID);
-            return RedirectToAction("Index", "Route"); //DOES NOT DO WHAT WE WANT IT TO DO TEMPORARY PUSH FIX
+            return RedirectToAction("Index", "Route");
         }
+
+        //POST: Remove user from Route
+        [HttpPost]
+        public ActionResult RemoveUserFromRoute(string User, int RouteID)
+        {
+            routeDal.RemoveUserFromRoute(User, RouteID);
+            return RedirectToAction("Index", "Route"); 
+        }
+
     }
 }

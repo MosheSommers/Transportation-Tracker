@@ -18,7 +18,7 @@ namespace Capstone.Web.DAL
         private const string RemoveAllWaypointsFromRouteQuery = "DELETE FROM waypoints WHERE route_Id = ";
         private const string GetUsersQuery = "SELECT email_address FROM private_route_users WHERE route_id = @routeId";
         private const string InsertUserQuery = "INSERT INTO private_route_users (route_id, email_address) VALUES (@routeId, @emailAddress)";
-        private const string RemoveAllUsersQuery = "DELETE FROM private_route_users WHERE route_Id = ";
+        private const string RemoveUserQuery = "DELETE FROM private_route_users WHERE route_Id = @routeId AND email_address = @emailAddress";
         private const string GetPrivateRoutesForUser = "SELECT route_id FROM private_route_users WHERE email_address = @emailAddress";
 
         private string connectionString;
@@ -265,55 +265,50 @@ namespace Capstone.Web.DAL
 
                     int rowsAffected = 0;
 
-                        if (User != null && User != "")
-                        {
-                            SqlCommand command = new SqlCommand(InsertUserQuery, connection);
-                            command.Parameters.AddWithValue("@routeId", RouteID);
-                            command.Parameters.AddWithValue("@emailAddress", User);
+                    if (User != null && User != "")
+                    {
+                        SqlCommand command = new SqlCommand(InsertUserQuery, connection);
+                        command.Parameters.AddWithValue("@routeId", RouteID);
+                        command.Parameters.AddWithValue("@emailAddress", User);
 
-                            rowsAffected += command.ExecuteNonQuery();
-                        }
-                    
+                        rowsAffected += command.ExecuteNonQuery();
+                    }
+
 
                     return rowsAffected == 1;
                 }
             }
-            catch (SqlException e)
-            {
-                throw e;
-
-            }
             catch (Exception a)
             {
-                throw a;
+                return false;
             }
         }
 
-        public void RemoveUsersFromRoute(Route r)
+        public bool RemoveUserFromRoute(string User, int RouteID)
         {
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    string delete = RemoveAllUsersQuery + r.RouteID;
                     connection.Open();
+                    int rowsAffected = 0;
 
-                    SqlCommand command = new SqlCommand(delete, connection);
+                    if (User != null && User != "")
+                    {
+                        SqlCommand command = new SqlCommand(RemoveUserQuery, connection);
+                        command.Parameters.AddWithValue("@routeId", RouteID);
+                        command.Parameters.AddWithValue("@emailAddress", User);
 
-                    int result = command.ExecuteNonQuery();
+                        rowsAffected += command.ExecuteNonQuery();
+                    }
 
+                    return rowsAffected == 1;
                 }
             }
-            catch (SqlException e)
+            catch (Exception a)
             {
-                throw;
-
+                return false;
             }
-            catch (Exception)
-            {
-                throw;
-            }
-
         }
 
 

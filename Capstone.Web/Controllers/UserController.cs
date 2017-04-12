@@ -106,7 +106,7 @@ namespace Capstone.Web.Controllers
         {
             Session.Abandon();
 
-            return Redirect(Request.UrlReferrer.ToString());
+            return RedirectToAction("Index", "Home");
         }
     }
 }

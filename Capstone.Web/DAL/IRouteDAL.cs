@@ -20,6 +20,6 @@ namespace Capstone.Web.DAL
 
         Route GetUsersOnRoute(Route r);
         bool InsertUserToRoute(string User, int RouteID);
-        void RemoveUsersFromRoute(Route r);
+        bool RemoveUserFromRoute(string User, int RouteID);
     }
 }

@@ -5,11 +5,11 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
-<h2> Add a user to Route: @Model.RouteName </h2>
+<h2> Edit Users For: @Model.RouteName</h2>
 <hr />
 
 <div id="right-panel">
+
     <form action="@Url.Action("UpdateUsersOnRoute")" method="post">
         <div>
             <input id="User" class="waypointAdder" type="text" name="User" placeholder="Enter e-mail address" />
@@ -17,14 +17,13 @@
         </div>
         <input type="submit" id="submit">
     </form>
-
-</div> 
-<div>
-
-    @for (int i = 0; i < Model.Users.Count; i++)
-            {
-        @Model.Users[i]<br />
-    }
-
 </div>
-
+<div>
+    <form action="@Url.Action("RemoveUserFromRoute")" method="post">
+        @for (int i = 0; i < Model.Users.Count; i++)
+            {
+            @Model.Users[i] <button value="@Model.Users[i]" name="User">DELETE</button><br />
+        }
+        @Html.Hidden("RouteID", Model.RouteID, new { @id = "RouteID" })
+    </form>
+</div>
