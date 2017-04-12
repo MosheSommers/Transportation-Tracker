@@ -7,23 +7,46 @@
 
 <h2> Add a user to Route: @Model.RouteName </h2>
 <hr />
-<div id="right-panel">
-<form action="@Url.Action("EditUsersOnRoute")" method ="post">
-    @{
-        for (int i = 0; i < Model.Users.Count; i++)
+<div>
+    <ul>
+        @for (int i = 0; i < Model.Users.Count; i++)
         {
-            <div>
-                @*<p id="userLabel[@i]" class="stopLabel">Stop: @stopNumber</p>*@
-                <input id="Waypoints[@i]" class="waypointAdder" type="text" name="User[@i]" value="@Model.Users[i]" />
-                <button type="button" id="add-btn[@i]" class="add-btn">Add User</button>
-                <button type="button" id="rmv-btn[@i]" class="rmv-btn">Remove User</button>
-                <hr />
-            </div>
+            <li>@Model.Users[i]</li>
         }
-    }
-
-</form>
+    </ul>
 </div>
+
+
+@*<div id="right-panel">
+    <div>
+        <form action="@Url.Action("UpdateUsersOnRoute")" method="post">
+            @{ if (Model.Users.Count != 0)
+            {
+                for (int i = 0; i < Model.Users.Count; i++)
+                {
+                        <div>
+                            <input id="Waypoints[@i]" class="waypointAdder" type="text" name="User[@i]" />
+                            <button type="button" id="add-btn[@i]" class="add-btn">Add User</button>
+                            <button type="button" id="rmv-btn[@i]" class="rmv-btn">Remove User</button>
+                            <hr />
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div>
+                        <input id="Waypoints[0]" class="waypointAdder" type="text" name="User[0]" placeholder="Enter e-mail address" />
+                        <button type="button" id="add-btn" class="add-btn">Add User</button>
+
+                        <hr />
+                    </div>
+                }
+
+            }
+            <input type="submit" id="submit">
+        </form>
+    </div>
+</div>*@
 
 <script>
     $('form').on('click', '.add-btn', function () {
@@ -31,8 +54,6 @@
         var stopIndex = $(this).index('.add-btn');
 
         for (var i = currentStopCount - 1; i > stopIndex; i--) {
-            //$('#stopLabel\\[' + i + '\\]').text('Stop: ' + (i + 2));
-            //$('#stopLabel\\[' + i + '\\]').attr("id", "stopLabel\[" + (i + 1) + "\]");
             $('#Waypoints\\[' + i + '\\]').attr("name", "User\[" + (i + 1) + "\]");
             $('#Waypoints\\[' + i + '\\]').attr("id", "Waypoints\[" + (i + 1) + "\]");
             $('#add-btn\\[' + i + '\\]').attr("id", "add-btn\[" + (i + 1) + "\]");
@@ -42,21 +63,19 @@
     });
 
     $('form').on('click', '.rmv-btn', function () {
-         var currentStopCount = $('.waypointAdder').length;
-         var stopIndex = $(this).index('.rmv-btn');
+        var currentStopCount = $('.waypointAdder').length;
+        var stopIndex = $(this).index('.rmv-btn');
 
-         if (currentStopCount > 2) {
-             for (var i = stopIndex + 1; i < currentStopCount; i++) {
-                 //$('#stopLabel\\[' + i + '\\]').text('Stop: ' + (i - 1));
-                 //$('#stopLabel\\[' + i + '\\]').attr("id", "stopLabel\[" + (i - 1) + "\]");
-                 $('#Waypoints\\[' + i + '\\]').attr("name", "User\[" + (i - 1) + "\]");
-                 $('#Waypoints\\[' + i + '\\]').attr("id", "Waypoints\[" + (i - 1) + "\]");
-                 $('#add-btn\\[' + i + '\\]').attr("id", "add-btn\[" + (i - 1) + "\]");
-                 $('#rmv-btn\\[' + i + '\\]').attr("id", "rmv-btn\[" + (i - 1) + "\]");
-             }
-             $(this).parent().remove();
-         }
-     });
+
+        for (var i = stopIndex + 1; i < currentStopCount; i++) {
+            $('#Waypoints\\[' + i + '\\]').attr("name", "User\[" + (i - 1) + "\]");
+            $('#Waypoints\\[' + i + '\\]').attr("id", "Waypoints\[" + (i - 1) + "\]");
+            $('#add-btn\\[' + i + '\\]').attr("id", "add-btn\[" + (i - 1) + "\]");
+            $('#rmv-btn\\[' + i + '\\]').attr("id", "rmv-btn\[" + (i - 1) + "\]");
+
+            $(this).parent().remove();
+        }
+    });
 </script>
 
 

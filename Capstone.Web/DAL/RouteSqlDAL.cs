@@ -55,6 +55,18 @@ namespace Capstone.Web.DAL
                         r.AddTime(Convert.ToDateTime(reader["stop_time"]));
 
                     }
+                    reader.Close();
+
+                    command = new SqlCommand(GetUsersQuery, connection);
+                    command.Parameters.AddWithValue("routeId", r.RouteID);
+
+                    reader = command.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        r.AddUser(Convert.ToString(reader["email_address"]));
+                    }
+
 
                     return r;
                 }
