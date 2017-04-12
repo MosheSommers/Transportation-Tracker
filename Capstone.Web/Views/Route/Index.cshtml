@@ -62,14 +62,20 @@
         });
         directionsDisplay.setMap(map);
 
-        showBusIconOnMap(41.090682, -85.154379, map); // THIS IS WHERE WE WILL SET THE LONG/LAT FROM JOSH'S API
+        var connection = $.connection("/transportation-socket");
+        connection.received(function (data) {
+            console.log(data);
+            showBusIconOnMap(data.longitude, data.latitude, map);
+        });
+        connection.start().done(function () {
+            console.log("Connected to WebSocket");
+        });
     }
 
-    function showBusIconOnMap(longitude, latitude, map) {
-        var latlng = new google.maps.LatLng(longitude, latitude);
+    function showBusIconOnMap(latitude, longitude, map) {
 
         var marker = new google.maps.Marker({
-            position: latlng,
+            position: new google.maps.LatLng(longitude, latitude),
             map: map,
             title: 'Bus Location',
             icon: 'http://maps.google.com/mapfiles/ms/icons/bus.png'
