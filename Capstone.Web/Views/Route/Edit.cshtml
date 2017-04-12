@@ -31,9 +31,18 @@
         }
 
         <h4>Route Privacy</h4>
-        <input id="PrivateGroup" type="radio" name="IsPrivate" value="True">Private<br />
-        <input id="PublicGroup" type="radio" name="IsPrivate" value="False">Public<br /><hr />
-
+        @{
+            if (Model.IsPrivate)
+            {
+                <input id="PrivateGroup" type="radio" name="IsPrivate" value="True" checked="checked"><text>Private</text><br />
+                <input id="PublicGroup" type="radio" name="IsPrivate" value="False"><text>Public</text><br /><hr />
+            }
+            else
+            {
+                <input id="PrivateGroup" type="radio" name="IsPrivate" value="True"><text>Private</text><br />
+                <input id="PublicGroup" type="radio" name="IsPrivate" value="False" checked="checked"><text>Public</text><br/><hr/>
+            }
+        }
         @Html.Hidden("RouteID", Model.RouteID, new { @id = "RouteID" })
         <input type="submit" id="submit">
     </form>
@@ -56,19 +65,19 @@
     });
 
     $('form').on('click', '.rmv-btn', function () {
-         var currentStopCount = $('.waypointAdder').length;
-         var stopIndex = $(this).index('.rmv-btn');
+        var currentStopCount = $('.waypointAdder').length;
+        var stopIndex = $(this).index('.rmv-btn');
 
-         if (currentStopCount > 2) {
-             for (var i = stopIndex + 1; i < currentStopCount; i++) {
-                 $('#stopLabel\\[' + i + '\\]').text('Stop: ' + (i - 1));
-                 $('#stopLabel\\[' + i + '\\]').attr("id", "stopLabel\[" + (i - 1) + "\]");
-                 $('#Waypoints\\[' + i + '\\]').attr("name", "Waypoints\[" + (i - 1) + "\]");
-                 $('#Waypoints\\[' + i + '\\]').attr("id", "Waypoints\[" + (i - 1) + "\]");
-                 $('#add-btn\\[' + i + '\\]').attr("id", "add-btn\[" + (i - 1) + "\]");
-                 $('#rmv-btn\\[' + i + '\\]').attr("id", "rmv-btn\[" + (i - 1) + "\]");
-             }
-             $(this).parent().remove();
-         }
-     });
+        if (currentStopCount > 2) {
+            for (var i = stopIndex + 1; i < currentStopCount; i++) {
+                $('#stopLabel\\[' + i + '\\]').text('Stop: ' + (i - 1));
+                $('#stopLabel\\[' + i + '\\]').attr("id", "stopLabel\[" + (i - 1) + "\]");
+                $('#Waypoints\\[' + i + '\\]').attr("name", "Waypoints\[" + (i - 1) + "\]");
+                $('#Waypoints\\[' + i + '\\]').attr("id", "Waypoints\[" + (i - 1) + "\]");
+                $('#add-btn\\[' + i + '\\]').attr("id", "add-btn\[" + (i - 1) + "\]");
+                $('#rmv-btn\\[' + i + '\\]').attr("id", "rmv-btn\[" + (i - 1) + "\]");
+            }
+            $(this).parent().remove();
+        }
+    });
 </script>
