@@ -16,10 +16,13 @@ namespace Capstone.Web.Controllers
         {
             this.routeDal = routeDal;
         }
+
         // GET: Route
         public ActionResult Index()
         {
-            List<Route> routes = routeDal.GetAllRoutes();
+            List<Route> routes = routeDal.GetAllRoutes(); 
+            //var user = (Capstone.Web.Models.User)Session["Login"];
+            //List<Route> routes = routeDal.GetAuthorizedRoutes(user);
             return View(routes);
         }
 
@@ -62,7 +65,14 @@ namespace Capstone.Web.Controllers
             if (editAction == "Edit Users")
             {
                 Route routeToEdit = routeDal.GetRoute(new Route { RouteID = routeID });
+                if (routeToEdit.IsPrivate)
+                {
                 return View("EditUsersOnRoute", routeToEdit);
+                }
+                else
+                {
+                    return RedirectToAction("Index");
+                }
             }
             else if (editAction == "Edit Route")
             {

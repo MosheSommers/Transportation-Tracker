@@ -14,7 +14,7 @@ namespace Capstone.Web.DAL
         private const string ChangePrivacyQuery = "UPDATE routes SET is_Private = @isPrivate WHERE route_id = @routeId";
         private const string GetWaypointsQuery = "select waypoint_position, stop_time from waypoints where route_id = @routeId";
         private const string GetAllRoutesQuery = "select * from routes";
-        private const string GetRouteName = "select route_name from routes where route_id = @routeId";
+        private const string GetRouteQuery = "select * from routes where route_id = @routeId";
         private const string RemoveAllWaypointsFromRouteQuery = "DELETE FROM waypoints WHERE route_Id = ";
         private const string GetUsersQuery = "SELECT email_address FROM private_route_users WHERE route_id = @routeId";
         private const string InsertUserQuery = "INSERT INTO private_route_users (route_id, email_address) VALUES (@routeId, @emailAddress)";
@@ -35,17 +35,19 @@ namespace Capstone.Web.DAL
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
-                    SqlCommand command = new SqlCommand(GetRouteName, connection);
+                    SqlCommand command = new SqlCommand(GetRouteQuery, connection);
                     command.Parameters.AddWithValue("@routeId", r.RouteID);
                     SqlDataReader reader = command.ExecuteReader();
                     while (reader.Read())
                     {
                         r.RouteName = Convert.ToString(reader["route_name"]);
+                        r.IsPrivate = Convert.ToBoolean(reader["is_Private"]);
                     }
                     reader.Close();
 
                     command = new SqlCommand(GetWaypointsQuery, connection);
                     command.Parameters.AddWithValue("@routeId", r.RouteID);
+
 
                     reader = command.ExecuteReader();
 
@@ -136,9 +138,45 @@ namespace Capstone.Web.DAL
                         Route r = new Route();
                         r.RouteName = Convert.ToString(reader["route_name"]);
                         r.RouteID = Convert.ToInt32(reader["route_id"]);
+                        r.IsPrivate = Convert.ToBoolean(reader["is_Private"]);
+                        routes.Add(r);
+                    }
+                    return routes;
+                }
+            }
+            catch (SqlException e)
+            {
+                throw;
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public List<Route> GetAuthorizedRoutes(User user)
+        {
+            try
+            {
+                List<Route> routes = new List<Route>();
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    SqlCommand command = new SqlCommand(GetAllRoutesQuery, connection);
+
+                    SqlDataReader reader = command.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        Route r = new Route();
+                        r.RouteName = Convert.ToString(reader["route_name"]);
+                        r.RouteID = Convert.ToInt32(reader["route_id"]);
+                        r.IsPrivate = Convert.ToBoolean(reader["is_Private"]);
 
                         routes.Add(r);
                     }
+
                     return routes;
                 }
             }
@@ -227,7 +265,7 @@ namespace Capstone.Web.DAL
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
-                    SqlCommand command = new SqlCommand(GetRouteName, connection);
+                    SqlCommand command = new SqlCommand(GetRouteQuery, connection);
                     command.Parameters.AddWithValue("@routeId", r.RouteID);
                     SqlDataReader reader = command.ExecuteReader();
                     while (reader.Read())
