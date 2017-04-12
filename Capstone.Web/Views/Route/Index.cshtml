@@ -24,6 +24,10 @@
 
     $(document).ready(function () {
         $('#RouteID').on('change', function () {
+            var summaryPanel = document.getElementById('directions-panel');
+            summaryPanel.innerHTML = '';
+            $('.editButton').remove();
+
             $.ajax({
                 url: "route/waypointlist",
                 data: {
@@ -31,16 +35,17 @@
                 },
                 method: "GET"
             }).done(function (result) {
-                if ($('#editRouteButton').length == 0) {
+                if ($('.editButton').length == 0 && $('#RouteID').val != 'Choose a Route') {
                     @{
                         var user = (Capstone.Web.Models.User)Session["Login"];
                         if (user != null && user.IsAdmin == true)
                         {
-                        <text>$('#RouteID').after('<input type="submit" id="editUserButton" value="Edit Users" name="editAction" />');</text>
-                        <text>$('#RouteID').after('<input type="submit" id="editRouteButton" value="Edit Route" name="editAction" />');</text>
+                        <text>$('#RouteID').after('<input type="submit" id="editUserButton" class="editButton" value="Edit Users" name="editAction" />');</text>
+                        <text>$('#RouteID').after('<input type="submit" id="editRouteButton" class="editButton" value="Edit Route" name="editAction" />');</text>
                                                     }
                     }
                 }
+
                 calculateAndDisplayRoute(directionsService, directionsDisplay, result.waypoints, result.times);
             });
         });

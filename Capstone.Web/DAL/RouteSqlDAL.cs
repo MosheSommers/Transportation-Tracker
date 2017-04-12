@@ -11,6 +11,7 @@ namespace Capstone.Web.DAL
     {
         private const string InsertWayPointsQuery = "insert into waypoints (waypoint_position, stop_time, route_id) values(@wayPoint, @stopTime, @routeId)";
         private const string InsertRouteQuery = "insert into routes values(@routeName, @isPrivate);SELECT CAST(scope_identity() AS int)";
+        private const string ChangePrivacyQuery = "UPDATE routes SET is_Private = @isPrivate WHERE route_id = @routeId";
         private const string GetWaypointsQuery = "select waypoint_position, stop_time from waypoints where route_id = @routeId";
         private const string GetAllRoutesQuery = "select * from routes";
         private const string GetRouteName = "select route_name from routes where route_id = @routeId";
@@ -152,7 +153,6 @@ namespace Capstone.Web.DAL
                     SqlCommand command = new SqlCommand(delete, connection);
 
                     int result = command.ExecuteNonQuery();
-
                 }
             }
             catch (SqlException e)
@@ -175,20 +175,25 @@ namespace Capstone.Web.DAL
                 {
                     connection.Open();
 
+                    SqlCommand command = new SqlCommand(ChangePrivacyQuery, connection);
+                    command.Parameters.AddWithValue("@routeId", r.RouteID);
+                    command.Parameters.AddWithValue("@isPrivate", r.IsPrivate);
+
                     int rowsAffected = 0;
 
-                    foreach (string wayPoint in r.Waypoints)
+                    for (int i = 0; i < r.Waypoints.Count; i++)
                     {
-                        if (wayPoint != null && wayPoint != "")
+                        if (r.Waypoints[i] != null && r.Waypoints[i] != "")
                         {
-                            SqlCommand command = new SqlCommand(InsertWayPointsQuery, connection);
-                            command.Parameters.AddWithValue("@wayPoint", wayPoint);
-                            command.Parameters.AddWithValue("@routeId", r.RouteID);
+                            var stopTime = r.Times[i];
 
+                            command = new SqlCommand(InsertWayPointsQuery, connection);
+                            command.Parameters.AddWithValue("@wayPoint", r.Waypoints[i]);
+                            command.Parameters.AddWithValue("@routeId", r.RouteID);
+                            command.Parameters.AddWithValue("@stopTime", stopTime);
                             rowsAffected += command.ExecuteNonQuery();
                         }
                     }
-
                     return rowsAffected == r.Waypoints.Count();
                 }
             }
