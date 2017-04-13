@@ -20,9 +20,22 @@ namespace Capstone.Web.Controllers
         // GET: Route
         public ActionResult Index()
         {
-            List<Route> routes = routeDal.GetAllRoutes(); 
-            //var user = (Capstone.Web.Models.User)Session["Login"];
-            //List<Route> routes = routeDal.GetAuthorizedRoutes(user);
+            var user = (Capstone.Web.Models.User)Session["Login"];
+            List<Route> routes = new List<Route>();
+
+            if (user != null && user.IsAdmin)                   // Logged in, Admin
+            {
+                routes = routeDal.GetAllRoutes();
+            }
+            else if (user != null && user.IsAdmin == false )    // Logged in, Not Admin
+            {
+                routes = routeDal.GetAuthorizedRoutes(user);
+            }
+            else
+            {
+                routes = routeDal.GetPublicRoutes();            // Not Logged In
+            }             
+
             return View(routes);
         }
 
