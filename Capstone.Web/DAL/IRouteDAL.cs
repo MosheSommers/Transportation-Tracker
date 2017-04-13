@@ -15,6 +15,7 @@ namespace Capstone.Web.DAL
 
         List<Route> GetAllRoutes();
         List<Route> GetAuthorizedRoutes(User u);
+        List<Route> GetPublicRoutes();
 
         void RemoveWaypointsFromRoute(Route r);
         bool InsertWaypoints(Route r);
