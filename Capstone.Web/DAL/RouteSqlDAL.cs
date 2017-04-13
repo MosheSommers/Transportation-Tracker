@@ -19,7 +19,7 @@ namespace Capstone.Web.DAL
         private const string GetUsersQuery = "SELECT email_address FROM private_route_users WHERE route_id = @routeId";
         private const string InsertUserQuery = "INSERT INTO private_route_users (route_id, email_address) VALUES (@routeId, @emailAddress)";
         private const string RemoveUserQuery = "DELETE FROM private_route_users WHERE route_Id = @routeId AND email_address = @emailAddress";
-        private const string GetPrivateRoutesForUser = "SELECT route_id FROM private_route_users WHERE email_address = @emailAddress";
+        private const string GetPrivateRoutesForUser = "SELECT * from routes where is_Private = false or route_id = (select route_id FROM private_route_users WHERE email_address = @emailAddress)";
 
         private string connectionString;
 
@@ -169,9 +169,12 @@ namespace Capstone.Web.DAL
 
                     while (reader.Read())
                     {
+                        
                         Route r = new Route();
+                        r.RouteName = Convert.ToString(reader["route_name"]);
                         r.RouteID = Convert.ToInt32(reader["route_id"]);
-
+                        //r.IsPrivate = Convert.ToBoolean(reader["is_Private"]);
+                        
                         authorizedRoutes.Add(r);
                     }
 
